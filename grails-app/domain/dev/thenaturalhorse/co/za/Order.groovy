@@ -2,7 +2,7 @@ package dev.thenaturalhorse.co.za
 
 class Order {
 
-    static hasMany = [products: Product]
+    static hasMany = [products: ProductItem]
 
     static belongsTo = [client: Client]
 
