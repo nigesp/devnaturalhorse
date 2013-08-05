@@ -4,6 +4,9 @@ class Practitioner {
 
     String firstName
     String lastName
+    BigDecimal price
+    String description
+    String profilePicUrl
 
     static hasMany = [articles: Article, practitionerTypes: PractitionerType]
 
