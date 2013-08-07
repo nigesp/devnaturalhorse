@@ -1,17 +1,16 @@
 package dev.thenaturalhorse.co.za
 
-class ProductCategory {
+class SupplyOrder {
 
-    String name
+    static hasMany = [items: ProductItem]
 
-    static hasMany = [products: Product]
+    static hasOne = [supplier: Supplier]
 
     Date dateCreated
     Date lastUpdated
 
     static constraints = {
-        name(nullable: false, blank: false)
-        products(nullable: true)
+        items(nullable: false)
     }
 
     static mapping = {

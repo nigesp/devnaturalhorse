@@ -10,7 +10,10 @@ class Product {
 
     static hasMany = [productItems: ProductItem]
 
-    static belongsTo = [supplier: Supplier, category: Category]
+    static belongsTo = [supplier: Supplier, category: ProductCategory]
+
+    Date dateCreated
+    Date lastUpdated
 
     static constraints = {
         name(nullable: false, blank: false)
@@ -24,5 +27,6 @@ class Product {
 
     static mapping = {
         description(type: "text")
+        autoTimestamp true
     }
 }

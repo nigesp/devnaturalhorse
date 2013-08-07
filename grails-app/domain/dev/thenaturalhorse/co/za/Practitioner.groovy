@@ -10,10 +10,17 @@ class Practitioner {
 
     static hasMany = [articles: Article, practitionerTypes: PractitionerType]
 
+    Date dateCreated
+    Date lastUpdated
+
     static constraints = {
         firstName(nullable: false, blank: false)
         lastName(nullable: false, blank: false)
         articles(nullable: true)
         practitionerTypes(nullable: false)
+    }
+
+    static mapping = {
+        autoTimestamp true
     }
 }

@@ -1,5 +1,7 @@
 package dev.thenaturalhorse.co.za
 
+import dev.thenaturalhorse.co.za.enums.ProductState
+
 class ProductItem {
 
     BigDecimal price
@@ -11,8 +13,11 @@ class ProductItem {
     float productLength
     float thickness
     String material
+    ProductState state
 
     static belongsTo = [product: Product, order: Order, basket: Basket]
+
+    static hasOne = [supplyOrder: SupplyOrder]
 
     Date dateCreated
     Date lastUpdated
@@ -28,6 +33,7 @@ class ProductItem {
         colour(nullable: true, blank: true)
         containerType(nullable: true, blank: true)
         material(nullable: true)
+        state(nullable: false)
     }
 
     static mapping = {

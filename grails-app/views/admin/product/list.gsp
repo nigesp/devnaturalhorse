@@ -94,7 +94,8 @@
                         <table class="orders-table table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <g:sortableColumn property="name" title="Name" />
+                                    <!--<th>Name</th>-->
                                     <th>Supplier</th>
                                     <th>Available</th>
                                     <th class="actions">Actions</th>
