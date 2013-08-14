@@ -9,6 +9,9 @@ class OrderSpecialRequest {
 
     static belongsTo = [order: Order]
 
+    Date dateCreated
+    Date lastUpdated
+
     static constraints = {
         request(nullable: false, blank: false)
         state(nullable: false)
@@ -16,6 +19,7 @@ class OrderSpecialRequest {
     }
 
     static mapping = {
+        autoTimestamp true
         request(type: "text")
     }
 }

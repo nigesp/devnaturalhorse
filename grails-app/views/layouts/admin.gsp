@@ -68,6 +68,7 @@
                                 <li class="dropdown <g:if test="${controllerName == "adminProduct"}">active</g:if>">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-shopping-cart"></i> Store <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
+                                        <li><a href="/adminProduct/list">Suppliers</a></li>
                                         <li><a href="/adminProduct/list">Products</a></li>
                                         <li><a href="orders.html">Orders</a></li>
                                         <li><a href="listing.html">Enquiries</a></li>
