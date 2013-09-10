@@ -8,7 +8,7 @@ package dev.thenaturalhorse.co.za.enums;
  * To change this template use File | Settings | File Templates.
  */
 public enum OrderState {
-    ORDER_PLACED("Order placed"),
+    ORDER_PLACED("ClientOrder placed"),
     PRINTED("Printed"),
     AWAITING_COURIER("Awaiting courier"),
     WITH_COURIER("With courier")

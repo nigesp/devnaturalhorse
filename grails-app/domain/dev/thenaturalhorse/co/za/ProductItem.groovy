@@ -15,7 +15,7 @@ class ProductItem {
     String material
     ProductState state
 
-    static belongsTo = [product: Product, order: Order, basket: Basket]
+    static belongsTo = [product: Product, order: ClientOrder, basket: Basket]
 
     static hasOne = [supplyOrder: SupplyOrder]
 

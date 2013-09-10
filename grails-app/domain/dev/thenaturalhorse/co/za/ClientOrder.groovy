@@ -2,7 +2,7 @@ package dev.thenaturalhorse.co.za
 
 import dev.thenaturalhorse.co.za.enums.OrderState
 
-class Order {
+class ClientOrder {
 
     OrderState state
     String deliveryInstructions

@@ -8,7 +8,7 @@ class Client {
     Basket basket
     DeliveryAddress address
 
-    static hasMany = [orders: Order]
+    static hasMany = [orders: ClientOrder]
 
     Date dateCreated
     Date lastUpdated

@@ -7,7 +7,7 @@ class OrderSpecialRequest {
     String request
     OrderSpecialRequestState state
 
-    static belongsTo = [order: Order]
+    static belongsTo = [order: ClientOrder]
 
     Date dateCreated
     Date lastUpdated
