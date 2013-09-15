@@ -7,6 +7,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
+<!doctype html>
 <html>
 <head>
     <title><g:layoutTitle default="TNH Admin" /></title>
@@ -65,10 +66,10 @@
                                         <li><a href="listing.html">Menus</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown <g:if test="${controllerName == "adminProduct"}">active</g:if>">
+                                <li class="dropdown <g:if test="${controllerName == "adminProduct" || controllerName == "adminSupplier"}">active</g:if>">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-shopping-cart"></i> Store <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/adminProduct/list">Suppliers</a></li>
+                                        <li><a href="/adminSupplier/list">Suppliers</a></li>
                                         <li><a href="/adminProduct/list">Products</a></li>
                                         <li><a href="orders.html">Orders</a></li>
                                         <li><a href="listing.html">Enquiries</a></li>
@@ -149,7 +150,7 @@
             d1.push([15, 36]);
             d1.push([16, 34]);
 
-            //$.plot($("#placeholder"), [ d1 ], { grid: { backgroundColor: 'white', color: '#999', borderWidth: 1, borderColor: '#DDD' }, colors: ["#6ECBE2"], series: { lines: { show: true, fill: true, fillColor: "rgba(110, 203, 226, 0.5)" } } });
+            $.plot($("#placeholder"), [ d1 ], { grid: { backgroundColor: 'white', color: '#999', borderWidth: 1, borderColor: '#DDD' }, colors: ["#6ECBE2"], series: { lines: { show: true, fill: true, fillColor: "rgba(110, 203, 226, 0.5)" } } });
         });
     </script>
 </body>

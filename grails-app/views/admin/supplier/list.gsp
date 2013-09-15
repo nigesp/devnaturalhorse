@@ -25,7 +25,7 @@
             <div class="container">
                 <div class="row">
                     <div class="span12 listing-buttons">
-                        <a href="/supplier/create"><button class="btn btn-success btn-primary">Add New Supplier</button></a>
+                        <a href="/adminSupplier/create"><button class="btn btn-success btn-primary">Add New Supplier</button></a>
                     </div>
                     <div class="span12">
                         <div class="slate">
@@ -46,8 +46,8 @@
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Date Created</th>
-                                    <th>Last Updated</th>
+                                    <th>Delivery Time (days)</th>
+                                    <th>Num Products</th>
                                     <th class="actions">Actions</th>
                                 </tr>
                                 </thead>
@@ -55,17 +55,17 @@
                                     <g:each in="${supplierInstanceList}" status="i" var="supplierInstance">
                                         <tr>
                                             <td>
-                                                <a href="form.html">${supplierInstance.name}</a>
+                                                <a href="/adminSupplier/show/${supplierInstance.id}">${supplierInstance.name}</a>
                                             </td>
                                             <td>
-                                                <span>${supplierInstance.dateCreated}</span>
+                                                <span>${supplierInstance.daysFromOrderToDelivery}</span>
                                             </td>
                                             <td>
-                                                <span>${supplierInstance.lastUpdated}</span>
+                                                <span>${supplierInstance?.products?.size()}</span>
                                             </td>
                                             <td class="actions">
                                                 <a class="btn btn-small btn-danger" data-toggle="modal" href="#removeItem">Remove</a>
-                                                <a class="btn btn-small btn-primary" href="form.html">View</a>
+                                                <a class="btn btn-small btn-primary" href="/adminSupplier/show/${supplierInstance.id}">View</a>
                                             </td>
                                         </tr>
                                     </g:each>

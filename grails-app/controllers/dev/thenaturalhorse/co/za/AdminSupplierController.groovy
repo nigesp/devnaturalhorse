@@ -2,7 +2,7 @@ package dev.thenaturalhorse.co.za
 
 import org.springframework.dao.DataIntegrityViolationException
 
-class SupplierController {
+class AdminSupplierController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -12,11 +12,11 @@ class SupplierController {
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        render(view: "/admin/supplier/list", model: [supplierInstanceList: Supplier.list(params), supplierInstanceTotal: Supplier.count()])
+        render(view: '/admin/supplier/list', model: [supplierInstanceList: Supplier.list(params), supplierInstanceTotal: Supplier.count()])
     }
 
     def create() {
-        render(view: "/admin/supplier/create", model: [supplierInstance: new Supplier(params)])
+        render(view: '/admin/supplier/create', model: [supplierInstance: new Supplier(params)])
     }
 
     def save() {
@@ -38,7 +38,7 @@ class SupplierController {
             return
         }
 
-        [supplierInstance: supplierInstance]
+        render(view: '/admin/supplier/show', model: [supplierInstance: supplierInstance])
     }
 
     def edit() {
@@ -49,7 +49,7 @@ class SupplierController {
             return
         }
 
-        [supplierInstance: supplierInstance]
+        render(view: '/admin/supplier/edit', model: [supplierInstance: supplierInstance])
     }
 
     def update() {

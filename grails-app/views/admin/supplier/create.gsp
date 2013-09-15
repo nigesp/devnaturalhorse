@@ -11,13 +11,13 @@
             <div class="container">
                 <ul class="breadcrumb">
                     <li>
-                        <a href="#">Admin</a> <span class="divider">/</span>
+                        <a href="/adminDashboard/index">Admin</a> <span class="divider">/</span>
                     </li>
                     <li>
                         <a href="#">Shop</a> <span class="divider">/</span>
                     </li>
                     <li>
-                        <a href="#">Suppliers</a> <span class="divider">/</span>
+                        <a href="/adminSupplier/list">Suppliers</a> <span class="divider">/</span>
                     </li>
                     <li class="active">Create</li>
                 </ul>
