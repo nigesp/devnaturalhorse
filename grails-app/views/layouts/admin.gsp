@@ -16,6 +16,8 @@
     <link href="/css/admin/font-awesome.css" rel="stylesheet">
     <link href="/css/admin/admin.css" rel="stylesheet">
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
 	    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -66,11 +68,12 @@
                                         <li><a href="listing.html">Menus</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown <g:if test="${controllerName == "adminProduct" || controllerName == "adminSupplier"}">active</g:if>">
+                                <li class="dropdown <g:if test="${controllerName == "adminProduct" || controllerName == "adminSupplier" || controllerName == "adminContact"|| controllerName == "adminProductCategory"}">active</g:if>">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-shopping-cart"></i> Store <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/adminSupplier/list">Suppliers</a></li>
                                         <li><a href="/adminProduct/list">Products</a></li>
+                                        <li><a href="/adminProductCategory/list">Product Categories</a></li>
                                         <li><a href="orders.html">Orders</a></li>
                                         <li><a href="listing.html">Enquiries</a></li>
                                     </ul>
@@ -124,7 +127,6 @@
     <!-- Le javascript
             ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="/js/admin/bootstrap.js"></script>
     <script src="/js/admin/excanvas.min.js"></script>
     <script src="/js/admin/jquery.flot.min.js"></script>

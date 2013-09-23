@@ -27,7 +27,7 @@
             <div class="container">
                 <div class="page-header">
                     <div class="btn-group pull-right">
-                        <button class="btn btn-info">Edit</button>
+                        <a href="/adminSupplier/edit/${supplierInstance?.id}"><button class="btn btn-info">Edit</button></a>
                     </div>
                     <h2>${supplierInstance?.name}</h2>
                 </div>
@@ -64,6 +64,9 @@
                         </div>
                         <div class="slate">
                             <div class="page-header">
+                                <div class="pull-right">
+                                    <button class="btn btn-success btn-primary">Create new supply order</button>
+                                </div>
                                 <h2>Supplier Orders</h2>
                             </div>
                             <table class="orders-table table">
@@ -87,6 +90,9 @@
                     <div class="span6">
                         <div class="slate">
                             <div class="page-header">
+                                <div class="pull-right">
+                                    <button class="btn btn-success btn-primary">Add Product</button>
+                                </div>
                                 <h2>Products</h2>
                             </div>
                             <table class="orders-table table">
@@ -104,6 +110,76 @@
                                     </g:else>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="slate">
+                            <div class="page-header">
+                                <div class="pull-right">
+                                    <a href="/adminContact/create?supplierId=${supplierInstance?.id}"><button class="btn btn-success btn-primary">Add Contact</button></a>
+                                </div>
+                                <h2>Contacts</h2>
+                            </div>
+                            <g:if test="${supplierInstance?.contacts?.size() > 0}">
+                                <g:each in="${supplierInstance?.contacts}" var="contact">
+                                    <table class="orders-table table">
+                                        <tbody>
+                                        <tr>
+                                            <td><h3>${contact?.firstName} ${contact?.lastName}</h3></td>
+                                            <td>
+                                                <a href="/adminContact/edit/${contact?.id}?supplierId=${supplierInstance?.id}"><button class="btn btn-mini btn-info">Edit</button></a>
+                                                <a data-toggle="modal" href="#myModal_${contact?.id}" class="btn btn-mini btn-danger">Delete</a>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="myModal_${contact?.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title">Delete</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you'd like to delete the contact:<br/>
+                                                                <h3>${contact?.firstName} ${contact?.lastName} - ${contact?.position}</h3>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                                %{--<a href="/adminContact/delete/${contact.id}?supplierId=${supplierInstance?.id}"><button type="button" class="btn btn-warning">Delete</button></a>--}%
+                                                                <g:form class="pull-right" controller="adminContact" action="delete" method="post">
+                                                                    <g:hiddenField name="supplierId" value="${supplierInstance?.id}"/>
+                                                                    <g:hiddenField name="id" value="${contact?.id}"/>
+                                                                    <g:submitButton id="contactDeleteButton" class="btn btn-warning" name="Delete" />
+                                                                </g:form>
+                                                            </div>
+                                                        </div><!-- /.modal-content -->
+                                                    </div><!-- /.modal-dialog -->
+                                                </div><!-- /.modal -->
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Position</td>
+                                            <td>${contact?.position}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Landline number</td>
+                                            <td>${contact?.landLineNumber}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cell number</td>
+                                            <td>${contact?.cellNumber}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email address</td>
+                                            <td>${contact?.emailAddress}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </g:each>
+                            </g:if>
+                            <g:else>
+                                <table class="orders-table table">
+                                    <tbody>
+                                        <tr>This supplier current has no contacts.</tr>
+                                    </tbody>
+                                </table>
+                            </g:else>
                         </div>
                     </div>
                 </div>

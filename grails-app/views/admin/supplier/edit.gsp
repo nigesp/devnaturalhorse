@@ -2,12 +2,54 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="admin">
 		<g:set var="entityName" value="${message(code: 'supplier.label', default: 'Supplier')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#edit-supplier" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+        <div class="secondary-masthead">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Admin</a> <span class="divider">/</span>
+                    </li>
+                    <li>
+                        <a href="#">Shop</a> <span class="divider">/</span>
+                    </li>
+                    <li>
+                        <a href="/adminSupplier/list">Suppliers</a> <span class="divider">/</span>
+                    </li>
+                    <li>
+                        <a href="/adminSupplier/show/${supplierInstance?.id}">${supplierInstance?.name}</a> <span class="divider">/</span>
+                    </li>
+                    <li class="active">Edit</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-area dashboard">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <div class="page-header">
+                            <h1>Edit - ${supplierInstance?.name}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="span12">
+                    <div class="slate">
+                        <g:form class="form-horizontal" action="save" >
+                            <fieldset>
+                                <g:render template="/admin/supplier/form"/>
+                                <g:submitButton name="create" class="btn btn-info" value="${message(code: 'default.button.create.label', default: 'Update')}" />
+                            </fieldset>
+                        </g:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		%{--<a href="#edit-supplier" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -31,13 +73,13 @@
 				<g:hiddenField name="id" value="${supplierInstance?.id}" />
 				<g:hiddenField name="version" value="${supplierInstance?.version}" />
 				<fieldset class="form">
-					<g:render template="form"/>
+					<g:render template="/admin/supplier/form"/>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
-		</div>
+		</div>--}%
 	</body>
 </html>

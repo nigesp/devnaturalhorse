@@ -2,9 +2,9 @@ package dev.thenaturalhorse.co.za
 
 import grails.test.mixin.*
 
-@TestFor(ProductController)
+@TestFor(AdminProductController)
 @Mock(Product)
-class ProductControllerTests {
+class AdminProductControllerTests {
 
 
     def populateValidParams(params) {

@@ -12,7 +12,7 @@
         <span class="required-indicator">*</span>
     </label>
     <div class="controls">
-        <g:select name="daysFromOrderToDelivery" from="${1..100}"/>
+        <g:select name="daysFromOrderToDelivery" from="${1..100}" value="${supplierInstance?.daysFromOrderToDelivery}"/>
     </div>
 </div>
 
@@ -21,7 +21,7 @@
         <span class="required-indicator">*</span>
     </label>
     <div class="controls">
-        <g:select name="state" from="${dev.thenaturalhorse.co.za.enums.DomainModelState}"/>
+        <g:select name="state" from="${dev.thenaturalhorse.co.za.enums.DomainModelState}" value="${supplierInstance?.state}"/>
     </div>
 </div>
 

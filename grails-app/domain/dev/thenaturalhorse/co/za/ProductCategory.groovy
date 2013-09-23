@@ -3,6 +3,7 @@ package dev.thenaturalhorse.co.za
 class ProductCategory {
 
     String name
+    String description
 
     static hasMany = [products: Product]
 
@@ -11,10 +12,12 @@ class ProductCategory {
 
     static constraints = {
         name(nullable: false, blank: false)
+        description(nullable: false, blank: false)
         products(nullable: true)
     }
 
     static mapping = {
         autoTimestamp true
+        description(type: "text")
     }
 }

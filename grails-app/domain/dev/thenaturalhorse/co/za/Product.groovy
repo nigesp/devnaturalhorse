@@ -19,7 +19,7 @@ class Product {
         name(nullable: false, blank: false)
         description(nullable: false, blank: false)
         manufacturer(nullable: false, blank: false)
-        imageUrl(nullable: false, blank: false)
+        imageUrl(nullable: false, blank: false, url: true)
         productItems(nullable: true)
         ingredients(nullable: true)
         category(nullable: false)
@@ -27,6 +27,7 @@ class Product {
 
     static mapping = {
         description(type: "text")
+        ingredients(type: "text")
         autoTimestamp true
     }
 }
