@@ -114,3 +114,8 @@ grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'dev.thenatura
 grails.plugins.springsecurity.authority.className = 'dev.thenaturalhorse.co.za.Role'
 grails.plugins.springsecurity.requestMap.className = 'dev.thenaturalhorse.co.za.Requestmap'
 //grails.plugins.springsecurity.securityConfigType = 'Requestmap'
+
+// Product Image Properties:
+product.image.file.types=['image/jpeg', 'image/jpg']
+product.image.min.width=260
+product.image.min.height=260

@@ -8,121 +8,144 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#show-product" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="show-product" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<ol class="property-list product">
-			
-				<g:if test="${productInstance?.name}">
-				<li class="fieldcontain">
-					<span id="name-label" class="property-label"><g:message code="product.name.label" default="Name" /></span>
-					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${productInstance}" field="name"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${productInstance?.description}">
-				<li class="fieldcontain">
-					<span id="description-label" class="property-label"><g:message code="product.description.label" default="Description" /></span>
-					
-						<span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${productInstance}" field="description"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${productInstance?.manufacturer}">
-				<li class="fieldcontain">
-					<span id="manufacturer-label" class="property-label"><g:message code="product.manufacturer.label" default="Manufacturer" /></span>
-					
-						<span class="property-value" aria-labelledby="manufacturer-label"><g:fieldValue bean="${productInstance}" field="manufacturer"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${productInstance?.imageUrl}">
-				<li class="fieldcontain">
-					<span id="imageUrl-label" class="property-label"><g:message code="product.imageUrl.label" default="Image Url" /></span>
-					
-						<span class="property-value" aria-labelledby="imageUrl-label"><g:fieldValue bean="${productInstance}" field="imageUrl"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${productInstance?.productItems}">
-				<li class="fieldcontain">
-					<span id="productItems-label" class="property-label"><g:message code="product.productItems.label" default="Product Items" /></span>
-					
-						<g:each in="${productInstance.productItems}" var="p">
-						<span class="property-value" aria-labelledby="productItems-label"><g:link controller="productItem" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${productInstance?.ingredients}">
-				<li class="fieldcontain">
-					<span id="ingredients-label" class="property-label"><g:message code="product.ingredients.label" default="Ingredients" /></span>
-					
-						<span class="property-value" aria-labelledby="ingredients-label"><g:fieldValue bean="${productInstance}" field="ingredients"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${productInstance?.category}">
-				<li class="fieldcontain">
-					<span id="category-label" class="property-label"><g:message code="product.category.label" default="Category" /></span>
-					
-						<span class="property-value" aria-labelledby="category-label"><g:link controller="adminProductCategory" action="show" id="${productInstance?.category?.id}">${productInstance?.category?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${productInstance?.dateCreated}">
-				<li class="fieldcontain">
-					<span id="dateCreated-label" class="property-label"><g:message code="product.dateCreated.label" default="Date Created" /></span>
-					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${productInstance?.dateCreated}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${productInstance?.lastUpdated}">
-				<li class="fieldcontain">
-					<span id="lastUpdated-label" class="property-label"><g:message code="product.lastUpdated.label" default="Last Updated" /></span>
-					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${productInstance?.lastUpdated}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${productInstance?.supplier}">
-				<li class="fieldcontain">
-					<span id="supplier-label" class="property-label"><g:message code="product.supplier.label" default="Supplier" /></span>
-					
-						<span class="property-value" aria-labelledby="supplier-label"><g:link controller="supplier" action="show" id="${productInstance?.supplier?.id}">${productInstance?.supplier?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-			</ol>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${productInstance?.id}" />
-					<g:link class="edit" action="edit" id="${productInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
-		</div>
+        <div class="secondary-masthead">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Admin</a> <span class="divider">/</span>
+                    </li>
+                    <li>
+                        <a href="#">Shop</a> <span class="divider">/</span>
+                    </li>
+                    <li>
+                        <a href="/adminProduct/list">Products</a> <span class="divider">/</span>
+                    </li>
+                    <li class="active">${productInstance?.name}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-area dashboard">
+            <div class="container">
+                <div class="page-header">
+                    <div class="btn-group pull-right">
+                        <a href="/adminProduct/edit/${productInstance?.id}"><button class="btn btn-info">Edit</button></a>
+                    </div>
+                    <h2>${productInstance?.name}</h2>
+                </div>
+                <div class="row">
+                    <div class="span6">
+                        <div class="slate">
+                            <div class="page-header">
+                                <h2>Details</h2>
+                            </div>
+                            <table class="orders-table table">
+                                <tbody>
+                                    <tr>
+                                        <td><span>Manufacturer</span></td>
+                                        <td>${productInstance?.manufacturer}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Image URL</span></td>
+                                        <td><a href="${productInstance?.imageUrl}/260.jpg">${productInstance?.imageUrl}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Ingredients</span></td>
+                                        <td>${productInstance?.ingredients}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Description</span></td>
+                                        <td>${productInstance?.description}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="slate">
+                            <div class="page-header">
+                                <g:if test="${productInstance?.productAttributes?.size() > 0}">
+                                    <div class="btn-group pull-right">
+                                        <a href="/adminProductOption/create"><button class="btn btn-success">Add product option</button></a>
+                                    </div>
+                                </g:if>
+                                <h2>Product Options & Inventory</h2>
+                            </div>
+                            <table class="orders-table table">
+                                <thead>
+                                <tr>
+                                    <g:if test="${productInstance?.productOptions?.size() > 0}">
+                                        <g:each in="${productInstance?.productAttributes}" var="attribute">
+                                            <td>${attribute?.name}</td>
+                                        </g:each>
+                                    </g:if>
+                                    <td>Num Items</td>
+                                    <td>Price</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <g:if test="${productInstance?.productOptions?.size() > 0}">
+                                        <g:each in="${productInstance?.productOptions}" var="option">
+                                            <g:each in="${option?.productOptionAttributes}" var="attribute">
+                                                <td>${attribute?.value}</td>
+                                            </g:each>
+                                            <td>${option?.numProducts}</td>
+                                            <td>R ${option?.price}</td>
+                                        </g:each>
+                                    </g:if>
+                                    <g:else>
+                                        <td>${productInstance?.totalItems}</td>
+                                        <td>R ${productInstance?.price}</td>
+                                    </g:else>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="slate">
+                            <div class="page-header">
+                                <div class="btn-group pull-right">
+                                    <a href="/adminProductAttribute/create?productId=${productInstance?.id}"><button class="btn btn-success">Add product attribute</button></a>
+                                </div>
+                                <h2>Product Attributes</h2>
+                            </div>
+                            <table class="orders-table table">
+                                <tbody>
+                                    <g:if test="${productInstance?.productAttributes?.size() > 0}">
+                                        <g:each in="${productInstance?.productAttributes}" var="attribute">
+                                            <tr>
+                                                <td>${attribute?.name}</td>
+                                                <td>
+                                                    <g:each in="${attribute?.productAttributeValues}" var="val">
+                                                        ${val?.value} <br/>
+                                                    </g:each>
+                                                </td>
+                                                <td class="pull-right"><button class="btn btn-mini btn-info">Edit</button></td>
+                                            </tr>
+                                        </g:each>
+                                    </g:if>
+                                    <g:else>
+                                        <tr>
+                                            <td>There are currently no attributes for this product.</td>
+                                        </tr>
+                                    </g:else>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span6">
+                        <div class="slate">
+                            <div class="page-header">
+                                <h2>Images</h2>
+                            </div>
+                            <div class="adminProductImage">
+                                <img src="${productInstance?.imageUrl}/260.jpg"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</body>
 </html>

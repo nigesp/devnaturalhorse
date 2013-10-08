@@ -11,8 +11,12 @@ class AdminSupplierController {
     }
 
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        render(view: '/admin/supplier/list', model: [supplierInstanceList: Supplier.list(params), supplierInstanceTotal: Supplier.count()])
+        List<Supplier> suppliers = Supplier.findAllActive.list()
+
+        render(view: '/admin/supplier/list', model: [supplierInstanceList: suppliers])
+
+        /*params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        render(view: '/admin/supplier/list', model: [supplierInstanceList: Supplier.list(params), supplierInstanceTotal: Supplier.count()])*/
     }
 
     def create() {
@@ -21,8 +25,13 @@ class AdminSupplierController {
 
     def save() {
         def supplierInstance = new Supplier(params)
+        println(params?.status)
+        supplierInstance?.status = params?.status
         if (!supplierInstance.save(flush: true)) {
-            render(view: "create", model: [supplierInstance: supplierInstance])
+            supplierInstance?.errors?.each {
+                println it
+            }
+            render(view: "/admin/supplier/create", model: [supplierInstance: supplierInstance])
             return
         }
 

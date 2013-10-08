@@ -1,8 +1,10 @@
 dataSource {
     pooled = true
-    driverClassName = "org.h2.Driver"
+    /*driverClassName = "org.h2.Driver"
     username = "sa"
-    password = ""
+    password = ""*/
+    driverClassName = "com.mysql.jdbc.Driver"
+    dialect = "org.hibernate.dialect.MySQLDialect"
 }
 
 hibernate {
@@ -14,9 +16,15 @@ hibernate {
 // environment specific settings
 environments {
     development {
-        dataSource {
+        /*dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE"
+        }*/
+        dataSource {
+            username = "root"
+            password = "ZAQxsw"
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+            url = "jdbc:mysql://localhost/thenaturalhorse?autoreconnect=true"
         }
     }
     test {

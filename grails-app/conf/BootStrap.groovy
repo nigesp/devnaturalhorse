@@ -6,7 +6,7 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        Role adminRole = new Role()
+        /*Role adminRole = new Role()
         adminRole.authority = 'ROLE_ADMIN'
         adminRole.save(flush: true)
 
@@ -21,7 +21,7 @@ class BootStrap {
 
         assert Role.count() == 2
         assert User.count() == 1
-        assert UserRole.count() == 1
+        assert UserRole.count() == 1*/
 
     }
     def destroy = {

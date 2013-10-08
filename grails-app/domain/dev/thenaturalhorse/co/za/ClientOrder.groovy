@@ -7,7 +7,7 @@ class ClientOrder {
     OrderState state
     String deliveryInstructions
 
-    static hasMany = [products: ProductItem, specialRequests: OrderSpecialRequest]
+    static hasMany = [products: ProductOption, specialRequests: OrderSpecialRequest]
 
     static belongsTo = [client: Client]
 

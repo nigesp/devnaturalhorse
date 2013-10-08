@@ -2,7 +2,7 @@ package dev.thenaturalhorse.co.za
 
 class SupplyOrder {
 
-    static hasMany = [items: ProductItem]
+    static hasMany = [items: ProductOption]
 
     static hasOne = [supplier: Supplier]
 

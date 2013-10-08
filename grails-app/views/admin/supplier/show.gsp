@@ -91,7 +91,7 @@
                         <div class="slate">
                             <div class="page-header">
                                 <div class="pull-right">
-                                    <button class="btn btn-success btn-primary">Add Product</button>
+                                    <a href="/adminProduct/create"><button class="btn btn-success btn-primary">Add Product</button></a>
                                 </div>
                                 <h2>Products</h2>
                             </div>
@@ -100,8 +100,8 @@
                                     <g:if test="${supplierInstance?.products?.size() > 0}">
                                         <g:each in="${supplierInstance?.products}" var="product">
                                             <tr>
-                                                <td><a href="#">${product?.name}</a></td>
-                                                <td>${product?.productItems?.size()}</td>
+                                                <td><a href="/adminProduct/show/${product?.id}">${product?.name}</a></td>
+                                                <td>${product?.totalItems}</td>
                                             </tr>
                                         </g:each>
                                     </g:if>
@@ -194,7 +194,7 @@
                 <div id="show-supplier" class="content scaffold-show" role="main">
                     <h1><g:message code="default.show.label" args="[entityName]" /></h1>
                     <g:if test="${flash.message}">
-                    <div class="message" role="status">${flash.message}</div>
+                    <div class="message" role="state">${flash.message}</div>
                     </g:if>
                     <ol class="property-list supplier">
 

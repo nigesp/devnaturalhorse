@@ -1,9 +1,10 @@
 <%@ page import="dev.thenaturalhorse.co.za.Supplier" %>
 
-<div class="control-group">
+<div class="control-group   <g:if test="${hasErrors(bean: supplierInstance, field: 'name', 'error')}">error</g:if>">
     <label class="control-label" for="name">Name<span>*</span></label>
     <div class="controls">
-        <g:textField class="input-xlarge focused" id="name" name="name" required="" value="${supplierInstance?.name}"/>
+        <g:textField class="input-xlarge focused" id="name" name="name" value="${supplierInstance?.name}"/>
+        <span class="help-inline"><g:fieldError field="name" bean="${supplierInstance}" /></span>
     </div>
 </div>
 
@@ -17,11 +18,11 @@
 </div>
 
 <div class="control-group">
-    <label class="control-label" for="name">State
+    <label class="control-label" for="name">Status
         <span class="required-indicator">*</span>
     </label>
     <div class="controls">
-        <g:select name="state" from="${dev.thenaturalhorse.co.za.enums.DomainModelState}" value="${supplierInstance?.state}"/>
+        <g:select name="status" from="${dev.thenaturalhorse.co.za.enums.DomainModelState}" value="${supplierInstance?.status}"/>
     </div>
 </div>
 

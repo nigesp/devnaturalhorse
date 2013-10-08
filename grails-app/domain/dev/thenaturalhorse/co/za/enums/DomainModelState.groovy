@@ -9,11 +9,16 @@ package dev.thenaturalhorse.co.za.enums;
  */
 public enum DomainModelState {
     ACTIVE("Active"),
+    NOT_ACTIVE("Not Active"),
     DISABLED("Disabled")
 
-    String displayName
+    String name
 
-    DomainModelState( String displayName ) {
-        this.displayName = displayName
+    DomainModelState( String name ) {
+        this.name = name
+    }
+
+    String getKey() {
+        name()
     }
 }

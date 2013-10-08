@@ -2,7 +2,7 @@ package dev.thenaturalhorse.co.za
 
 class Basket {
 
-    static hasMany = [products: ProductItem]
+    static hasMany = [products: ProductOption]
 
     static hasOne = [client: Client]
 

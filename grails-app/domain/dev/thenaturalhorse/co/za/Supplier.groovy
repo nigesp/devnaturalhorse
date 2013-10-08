@@ -8,7 +8,7 @@ class Supplier {
     Integer daysFromOrderToDelivery
     PostalAddress postalAddress
     PhysicalAddress physicalAddress
-    DomainModelState state
+    DomainModelState status
 
     static hasMany = [products: Product, supplyOrders: SupplyOrder, contacts: Contact]
 
@@ -23,7 +23,7 @@ class Supplier {
         postalAddress(nullable: true)
         physicalAddress(nullable: true)
         contacts(nullable: true)
-        state(nullable: false)
+        status(nullable: false)
     }
 
     static mapping = {
@@ -32,7 +32,7 @@ class Supplier {
 
     static namedQueries = {
         findAllActive {
-            eq('state', DomainModelState.ACTIVE)
+            eq('status', DomainModelState.ACTIVE)
         }
     }
 }

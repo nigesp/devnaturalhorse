@@ -1,10 +1,10 @@
 
-<%@ page import="dev.thenaturalhorse.co.za.Product" %>
+<%@ page import="dev.thenaturalhorse.co.za.ProductAttribute" %>
 <!doctype html>
 <html>
 	<head>
 		<meta name="layout" content="admin">
-		<g:set var="entityName" value="${message(code: 'product.label', default: 'Product')}" />
+		<g:set var="entityName" value="${message(code: 'productAttribute.label', default: 'ProductAttribute')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
@@ -17,7 +17,10 @@
                     <li>
                         <a href="#">Shop</a> <span class="divider">/</span>
                     </li>
-                    <li class="active">Products</li>
+                    <li>
+                        <a href="/adminProduct/show/${productInstance?.id}">${productInstance?.name}</a> <span class="divider">/</span>
+                    </li>
+                    <li class="active">Product Attributes</li>
                 </ul>
             </div>
         </div>
@@ -25,7 +28,7 @@
             <div class="container">
                 <div class="row">
                     <div class="span12 listing-buttons">
-                        <a href="/adminProduct/create"><button class="btn btn-success btn-primary">Add New Product</button></a>
+                        <a href="/adminProductAtribute/create"><button class="btn btn-success btn-primary">Add New Product Attribute</button></a>
                     </div>
                     <div class="span12">
                         <div class="slate">
@@ -40,29 +43,24 @@
                                         <li><a href="">PDF</a></li>
                                     </ul>
                                 </div>
-                                <h2>Suppliers</h2>
+                                <h2>${productInstance?.name} Attributes</h2>
                             </div>
                             <table class="orders-table table">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Supplier</th>
-                                    <th>Num Product Items</th>
+                                    <th>Attributes</th>
                                     <th class="actions">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <g:each in="${productInstanceList}" status="i" var="productInstance">
+                                <g:each in="${productAttributeInstanceList}" status="i" var="productAttributeInstance">
                                     <tr>
                                         <td>
-                                            <a href="/adminProduct/show/${productInstance.id}">${productInstance?.name}</a>
+                                            <a href="/adminProductAttribute/show/${productAttributeInstance?.id}">${productAttributeInstance?.name}</a>
                                         </td>
                                         <td>
                                             <span>${productInstance?.supplier?.name}</span>
-                                        </td>
-                                        <td>
-                                            %{--<span>${productInstance?.pro?.size()}</span>--}%
-                                            <span>2</span>
                                         </td>
                                         <td class="actions">
                                             <a class="btn btn-small btn-danger" data-toggle="modal" href="#removeItem">Remove</a>
@@ -77,59 +75,52 @@
                 </div>
             </div>
         </div>
-		%{--<a href="#list-product" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+
+		<a href="#list-productAttribute" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
-		<div id="list-product" class="content scaffold-list" role="main">
+		<div id="list-productAttribute" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
-			<div class="message" role="state">${flash.message}</div>
+			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<table>
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="name" title="${message(code: 'product.name.label', default: 'Name')}" />
+						<g:sortableColumn property="name" title="${message(code: 'productAttribute.name.label', default: 'Name')}" />
 					
-						<g:sortableColumn property="description" title="${message(code: 'product.description.label', default: 'Description')}" />
+						<th><g:message code="productAttribute.product.label" default="Product" /></th>
 					
-						<g:sortableColumn property="manufacturer" title="${message(code: 'product.manufacturer.label', default: 'Manufacturer')}" />
+						<g:sortableColumn property="dateCreated" title="${message(code: 'productAttribute.dateCreated.label', default: 'Date Created')}" />
 					
-						<g:sortableColumn property="imageUrl" title="${message(code: 'product.imageUrl.label', default: 'Image Url')}" />
-					
-						<g:sortableColumn property="ingredients" title="${message(code: 'product.ingredients.label', default: 'Ingredients')}" />
-					
-						<th><g:message code="product.category.label" default="Category" /></th>
+						<g:sortableColumn property="lastUpdated" title="${message(code: 'productAttribute.lastUpdated.label', default: 'Last Updated')}" />
 					
 					</tr>
 				</thead>
 				<tbody>
-				<g:each in="${productInstanceList}" state="i" var="productInstance">
+				<g:each in="${productAttributeInstanceList}" status="i" var="productAttributeInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${productInstance.id}">${fieldValue(bean: productInstance, field: "name")}</g:link></td>
+						<td><g:link action="show" id="${productAttributeInstance.id}">${fieldValue(bean: productAttributeInstance, field: "name")}</g:link></td>
 					
-						<td>${fieldValue(bean: productInstance, field: "description")}</td>
+						<td>${fieldValue(bean: productAttributeInstance, field: "product")}</td>
 					
-						<td>${fieldValue(bean: productInstance, field: "manufacturer")}</td>
+						<td><g:formatDate date="${productAttributeInstance.dateCreated}" /></td>
 					
-						<td>${fieldValue(bean: productInstance, field: "imageUrl")}</td>
-					
-						<td>${fieldValue(bean: productInstance, field: "ingredients")}</td>
-					
-						<td>${fieldValue(bean: productInstance, field: "category")}</td>
+						<td><g:formatDate date="${productAttributeInstance.lastUpdated}" /></td>
 					
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${productInstanceTotal}" />
+				<g:paginate total="${productAttributeInstanceTotal}" />
 			</div>
-		</div>--}%
+		</div>
 	</body>
 </html>

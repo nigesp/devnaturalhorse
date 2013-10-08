@@ -55,17 +55,17 @@
                                     <g:each in="${supplierInstanceList}" status="i" var="supplierInstance">
                                         <tr>
                                             <td>
-                                                <a href="/adminSupplier/show/${supplierInstance.id}">${supplierInstance.name}</a>
+                                                <a href="/adminSupplier/show/${supplierInstance?.id}">${supplierInstance?.name}</a>
                                             </td>
                                             <td>
-                                                <span>${supplierInstance.daysFromOrderToDelivery}</span>
+                                                <span>${supplierInstance?.daysFromOrderToDelivery}</span>
                                             </td>
                                             <td>
                                                 <span>${supplierInstance?.products?.size()}</span>
                                             </td>
                                             <td class="actions">
                                                 <a class="btn btn-small btn-danger" data-toggle="modal" href="#removeItem">Remove</a>
-                                                <a class="btn btn-small btn-primary" href="/adminSupplier/show/${supplierInstance.id}">View</a>
+                                                <a class="btn btn-small btn-primary" href="/adminSupplier/show/${supplierInstance?.id}">View</a>
                                             </td>
                                         </tr>
                                     </g:each>

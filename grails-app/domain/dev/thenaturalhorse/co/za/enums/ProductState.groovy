@@ -18,9 +18,13 @@ public enum ProductState {
     RETURNED_DAMAGED("Returned damaged"),
     RETURNED_UNDELIVERED("Returned undelivered")
 
-    String displayName
+    String name
 
-    ProductState( String displayName ) {
-        this.displayName = displayName
+    ProductState( String name ) {
+        this.name = name
+    }
+
+    String getKey() {
+        name()
     }
 }
