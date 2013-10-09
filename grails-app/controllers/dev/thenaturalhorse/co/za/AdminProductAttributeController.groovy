@@ -18,31 +18,43 @@ class AdminProductAttributeController {
     }
 
     def create() {
-        render(view: '/admin/productAttribute/create', model: [productAttributeInstance: new ProductAttribute(params), productInstance: Product.findById(params?.productId)])
+        Product product = Product.findById(params?.productId)
+        render(view: '/admin/productAttribute/create', model: [productAttributeInstance: new ProductAttribute(params), productInstance: product])
     }
 
-    def save = { ProductAttributeCommand attributeCommand ->
+    def save() {/* = { ProductAttributeCommand attributeCommand ->*/
 
-        if (attributeCommand.hasErrors()) {
-            attributeCommand.each {
-                println(it)
-            }
-            render(view: '/admin/productAttribute/create', model: [attributeCommand: attributeCommand])
+        Product product = Product.findById(params?.productId)
+
+        if (!params?.name && !params?.defaultValue) {
+            render(view: '/admin/productAttribute/create', model: [productInstance: product, nameError: "Please enter an attribute name.", defaultValueError: "Please enter at least one attribute value."])
+            return
+        } else if (!params?.name) {
+            render(view: '/admin/productAttribute/create', model: [defaultValue: params?.defaultValue, productInstance: product, nameError: "Please enter an attribute name."])
+            return
+        } else if (!params?.attributes) {
+            render(view: '/admin/productAttribute/create', model: [name: params?.name, productInstance: product, defaultValueError: "Please enter at least one attribute value."])
             return
         }
 
-        ProductAttributeValue value = new ProductAttributeValue()
-        value.setValue(attributeCommand?.defaultValue)
-
         ProductAttribute attribute = new ProductAttribute()
-        attribute.setName(attributeCommand?.name)
-        attribute.addToProductAttributeValues(value)
+        attribute.setName(params?.name)
 
-        Product product = Product.findById(attributeCommand?.product?.id)
+        //Add default value.
+        ProductAttributeValue defaultVal = new ProductAttributeValue()
+        defaultVal.value = params?.defaultValue
+        attribute.addToProductAttributeValues(defaultVal)
+
+        params?.attributes?.each {
+            ProductAttributeValue value = new ProductAttributeValue()
+            value.setValue(it)
+            attribute.addToProductAttributeValues(value)
+        }
+
         product.addToProductAttributes(attribute)
         product.save(flush: true)
 
-        redirect(controller: "adminProduct", action: "show", id: "${attributeCommand?.product?.id}")
+        redirect(controller: "adminProduct", action: "show", id: "${params?.productId}")
     }
 
     def show() {
@@ -116,15 +128,15 @@ class AdminProductAttributeController {
         }
     }
 
-    class ProductAttributeCommand {
+    /*class ProductAttributeCommand {
         String name
-        String defaultValue
+        List<String> attributes
         Product product
 
         static constraints = {
             name(nullable: false, blank: false)
-            defaultValue(nullable: false, blank: false)
+            attributes(nullable: false, minSize: 1)
             product(nullable: false)
         }
-    }
+    }*/
 }

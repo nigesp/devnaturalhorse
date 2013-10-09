@@ -1,44 +1,28 @@
-<div class="control-group  <g:if test="${hasErrors(bean: attributeCommand, field: 'name', 'error')}">error</g:if>">
+<div class="control-group  <g:if test="${nameError}">error</g:if>">
     <label class="control-label" for="name">Name <span>*</span></label>
     <div class="controls">
-        <g:textField name="name" value="${attributeCommand?.name}"/>
-        <span class="help-inline"><g:fieldError field="name" bean="${attributeCommand}" /></span>
+        <g:textField name="name" value="${name}"/>
+        <span class="help-inline">${nameError}</span>
     </div>
 </div>
 
-<div class="control-group  <g:if test="${hasErrors(bean: attributeCommand, field: 'name', 'error')}">error</g:if>">
-    <label class="control-label" for="defaultValue">Default Value <span>*</span></label>
-    <div class="controls">
-        <g:textField name="defaultValue" value="${attributeCommand?.name}"/>
-        <span class="help-inline"><g:fieldError field="defaultValue" bean="${attributeCommand}" /></span>
+<div id="attributeInputs">
+    <div class="control-group  <g:if test="${defaultValueError}">error</g:if>">
+        <label class="control-label" for="defaultValue">Default Attribute Value <span>*</span></label>
+        <div class="controls">
+            <g:textField name="defaultValue" value="${defaultValue}"/>
+            <span class="help-inline">${defaultValueError}</span>
+        </div>
     </div>
 </div>
 
+<div class="controls"><a id="anotherAttribute" href="#">Add another attribute value</a></div>
 
-%{--<div class="fieldcontain ${hasErrors(bean: productAttributeInstance, field: 'productAttributeValues', 'error')} ">
-	<label for="productAttributeValues">
-		<g:message code="productAttribute.productAttributeValues.label" default="Product Attribute Values" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${productAttributeInstance?.productAttributeValues?}" var="p">
-    <li><g:link controller="productAttributeValue" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="productAttributeValue" action="create" params="['productAttribute.id': productAttributeInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'productAttributeValue.label', default: 'ProductAttributeValue')])}</g:link>
-</li>
-</ul>
+<script type="text/javascript">
+    $('#anotherAttribute').live('click', function() {
+        $('#attributeInputs').append('<div class="control-group"><div class="controls"><input type="text" name="attributes" value="" id="defaultValue"><span class="help-inline"></span></div></div>');
+    });
+</script>
 
-</div>--}%
-
-<g:hiddenField name="product.id" value="${productInstance?.id}"/>
-
-%{--<div class="fieldcontain ${hasErrors(bean: productAttributeInstance, field: 'product', 'error')} required">
-	<label for="product">
-		<g:message code="productAttribute.product.label" default="Product" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="product" name="product.id" from="${dev.thenaturalhorse.co.za.Product.list()}" optionKey="id" required="" value="${productAttributeInstance?.product?.id}" class="many-to-one"/>
-</div>--}%
+<g:hiddenField name="productId" value="${productInstance?.id}"/>
 
