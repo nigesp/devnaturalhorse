@@ -22,39 +22,31 @@ class AdminProductAttributeController {
         render(view: '/admin/productAttribute/create', model: [productAttributeInstance: new ProductAttribute(params), productInstance: product])
     }
 
-    def save() {/* = { ProductAttributeCommand attributeCommand ->*/
+    def save() {
 
         Product product = Product.findById(params?.productId)
 
-        if (!params?.name && !params?.defaultValue) {
-            render(view: '/admin/productAttribute/create', model: [productInstance: product, nameError: "Please enter an attribute name.", defaultValueError: "Please enter at least one attribute value."])
-            return
-        } else if (!params?.name) {
-            render(view: '/admin/productAttribute/create', model: [defaultValue: params?.defaultValue, productInstance: product, nameError: "Please enter an attribute name."])
-            return
-        } else if (!params?.attributes) {
-            render(view: '/admin/productAttribute/create', model: [name: params?.name, productInstance: product, defaultValueError: "Please enter at least one attribute value."])
+        ProductAttribute productAttribute = new ProductAttribute()
+        productAttribute.name = params?.name
+        productAttribute.product = product
+        params?.list('values').each {
+            if(it != "") {
+                productAttribute.addToValues(it)
+            }
+        }
+
+        if (!productAttribute.save(flush: true)) {
+            productAttribute.errors.each {
+                println it
+            }
+            render(view: '/admin/productAttribute/create', model: [productAttributeInstance: productAttribute, productInstance: product])
             return
         }
 
-        ProductAttribute attribute = new ProductAttribute()
-        attribute.setName(params?.name)
-
-        //Add default value.
-        ProductAttributeValue defaultVal = new ProductAttributeValue()
-        defaultVal.value = params?.defaultValue
-        attribute.addToProductAttributeValues(defaultVal)
-
-        params?.attributes?.each {
-            ProductAttributeValue value = new ProductAttributeValue()
-            value.setValue(it)
-            attribute.addToProductAttributeValues(value)
-        }
-
-        product.addToProductAttributes(attribute)
+        product.addToProductAttributes(productAttribute)
         product.save(flush: true)
 
-        redirect(controller: "adminProduct", action: "show", id: "${params?.productId}")
+        redirect(controller: "adminProduct", action: "show", id: product?.id)
     }
 
     def show() {
@@ -70,13 +62,14 @@ class AdminProductAttributeController {
 
     def edit() {
         def productAttributeInstance = ProductAttribute.get(params.id)
+        Product product = Product?.findById(params?.productId)
         if (!productAttributeInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'productAttribute.label', default: 'ProductAttribute'), params.id])
             redirect(action: "list")
             return
         }
 
-        [productAttributeInstance: productAttributeInstance]
+        render(view: '/admin/productAttribute/edit', model: [productAttributeInstance: productAttributeInstance, productInstance: product])
     }
 
     def update() {

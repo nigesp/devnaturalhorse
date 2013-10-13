@@ -8,7 +8,7 @@ class ProductOptionAttribute {
     Date dateCreated
     Date lastUpdated
 
-    static belongsTo = [productOption: ProductOption]
+    //static belongsTo = [productOption: ProductOption]
 
     static constraints = {
         attribute(nullable: false)

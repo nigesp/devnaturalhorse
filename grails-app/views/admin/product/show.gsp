@@ -115,11 +115,11 @@
                                             <tr>
                                                 <td>${attribute?.name}</td>
                                                 <td>
-                                                    <g:each in="${attribute?.productAttributeValues}" var="val">
-                                                        ${val?.value} <br/>
+                                                    <g:each in="${attribute?.values}" var="val">
+                                                        ${val} <br/>
                                                     </g:each>
                                                 </td>
-                                                <td class="pull-right"><button class="btn btn-mini btn-info">Edit</button></td>
+                                                <td class="pull-right"><a href="/adminProductAttribute/edit/${attribute?.id}?productId=${productInstance?.id}"><button class="btn btn-mini btn-info">Edit</button></a></td>
                                             </tr>
                                         </g:each>
                                     </g:if>
