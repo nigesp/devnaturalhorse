@@ -74,32 +74,32 @@ class AdminProductAttributeController {
 
     def update() {
         def productAttributeInstance = ProductAttribute.get(params.id)
+        Product product = Product.findById(params?.productId)
+
         if (!productAttributeInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'productAttribute.label', default: 'ProductAttribute'), params.id])
             redirect(action: "list")
             return
         }
 
-        if (params.version) {
-            def version = params.version.toLong()
-            if (productAttributeInstance.version > version) {
-                productAttributeInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                        [message(code: 'productAttribute.label', default: 'ProductAttribute')] as Object[],
-                        "Another user has updated this ProductAttribute while you were editing")
-                render(view: "edit", model: [productAttributeInstance: productAttributeInstance])
-                return
+        //productAttributeInstance.properties = params
+        productAttributeInstance.name = params?.name
+        productAttributeInstance.values = new ArrayList()
+        params?.list('values').each {
+            if(it != "") {
+                productAttributeInstance.addToValues(it)
             }
         }
 
-        productAttributeInstance.properties = params
-
-        if (!productAttributeInstance.save(flush: true)) {
-            render(view: "edit", model: [productAttributeInstance: productAttributeInstance])
+        if (productAttributeInstance.hasErrors()) {
+            render(view: '/admin/productAttribute/edit', model: [productAttributeInstance: productAttributeInstance, productInstance: product])
             return
         }
 
+        product.save(flush: true)
+
         flash.message = message(code: 'default.updated.message', args: [message(code: 'productAttribute.label', default: 'ProductAttribute'), productAttributeInstance.id])
-        redirect(action: "show", id: productAttributeInstance.id)
+        redirect(controller: "adminProduct", action: "show", id: product.id)
     }
 
     def delete() {
