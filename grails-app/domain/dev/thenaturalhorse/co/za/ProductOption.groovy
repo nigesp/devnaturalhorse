@@ -7,8 +7,6 @@ class ProductOption {
     String attribute
     String value
 
-    //static hasMany = [productOptionAttributes: ProductOptionAttribute]
-
     static belongsTo = [product: Product, order: ClientOrder, basket: Basket]
 
     static hasOne = [supplyOrder: SupplyOrder]
@@ -23,7 +21,6 @@ class ProductOption {
         basket(nullable: true)
         attribute(nullable: false, blank: false)
         value(nullable: false, blank: false)
-        //productOptionAttributes(nullable: false)
     }
 
     static mapping = {

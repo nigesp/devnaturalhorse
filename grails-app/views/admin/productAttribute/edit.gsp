@@ -42,7 +42,7 @@
                             <g:render template="/admin/productAttribute/form"/>
                             <g:hiddenField name="productId" value="${productInstance?.id}" />
                             <g:hiddenField name="id" value="${productAttributeInstance?.id}" />
-                            <g:submitButton name="Update" class="btn btn-info" value="${message(code: 'default.button.create.label', default: 'Update')}" />
+                            <g:submitButton name="Update" class="btn btn-info" value="Update" />
                         </fieldset>
                     </g:form>
                 </div>

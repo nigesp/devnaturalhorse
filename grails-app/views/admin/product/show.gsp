@@ -65,7 +65,7 @@
                             <div class="page-header">
                                 <g:if test="${productInstance?.productAttributes?.size() > 0}">
                                     <div class="btn-group pull-right">
-                                        <a href="/adminProductOption/create"><button class="btn btn-success">Add product option</button></a>
+                                        <a href="/adminProductOption/create?productId=${productInstance?.id}"><button class="btn btn-success">Add product option</button></a>
                                     </div>
                                 </g:if>
                                 <h2>Product Options & Inventory</h2>
