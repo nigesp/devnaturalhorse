@@ -12,6 +12,7 @@ class Product {
     int totalItems
     BigDecimal price
     ProductState state
+    List productAttributes
 
     static hasMany = [productOptions: ProductOption, productAttributes: ProductAttribute]
 

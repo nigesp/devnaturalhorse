@@ -35,7 +35,8 @@ class AdminProductAttributeController {
             }
         }
 
-        if (!productAttribute.save(flush: true)) {
+        productAttribute.validate()
+        if (productAttribute.hasErrors()) {
             productAttribute.errors.each {
                 println it
             }
