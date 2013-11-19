@@ -80,24 +80,29 @@
                                     </g:if>
                                     <td>Num Items</td>
                                     <td>Price</td>
+                                    <td>Actions</td>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
                                     <g:if test="${productInstance?.productOptions?.size() > 0}">
                                         <g:each in="${productInstance?.productOptions}" var="option">
-                                            <g:each in="${option?.productOptionAttributes}" var="attribute">
-                                                <td>${attribute?.value}</td>
-                                            </g:each>
-                                            <td>${option?.numProducts}</td>
-                                            <td>R ${option?.price}</td>
+                                            <tr>
+                                                <g:each in="${option?.productOptionAttributes}" var="attribute">
+                                                    <td>${attribute?.value}</td>
+                                                </g:each>
+                                                <td>${option?.numProducts}</td>
+                                                <td>R ${option?.price}</td>
+                                                <td><a href="#">Edit</a></td>
+                                            </tr>
                                         </g:each>
                                     </g:if>
                                     <g:else>
-                                        <td>${productInstance?.totalItems}</td>
-                                        <td>R ${productInstance?.price}</td>
+                                        <tr>
+                                            <td>${productInstance?.totalItems}</td>
+                                            <td>R ${productInstance?.price}</td>
+                                            <td><a href="#">Edit</a></td>
+                                        </tr>
                                     </g:else>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>

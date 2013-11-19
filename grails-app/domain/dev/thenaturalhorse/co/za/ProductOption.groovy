@@ -4,12 +4,13 @@ class ProductOption {
 
     BigDecimal price
     int numProducts
-    String attribute
-    String value
+    List<ProductOptionAttribute> productOptionAttributes
 
     static belongsTo = [product: Product, order: ClientOrder, basket: Basket]
 
     static hasOne = [supplyOrder: SupplyOrder]
+
+    static hasMany = [productOptionAttributes: ProductOptionAttribute]
 
     Date dateCreated
     Date lastUpdated
@@ -19,8 +20,8 @@ class ProductOption {
         product(nullable: false)
         order(nullable: true)
         basket(nullable: true)
-        attribute(nullable: false, blank: false)
-        value(nullable: false, blank: false)
+        supplyOrder(nullable: true)
+        productOptionAttributes(nullable: false)
     }
 
     static mapping = {

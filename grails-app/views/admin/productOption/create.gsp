@@ -42,6 +42,7 @@
                                 <g:render template="/admin/productOption/form"/>
                                 <g:submitButton name="create" class="btn btn-info" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                             </fieldset>
+                            <g:hiddenField name="productId" value="${productInstance?.id}"/>
                         </g:form>
                     </div>
                 </div>

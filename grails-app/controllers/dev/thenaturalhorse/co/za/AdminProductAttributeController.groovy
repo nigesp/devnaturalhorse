@@ -122,6 +122,15 @@ class AdminProductAttributeController {
         }
     }
 
+    def getProductAttributeValues() {
+        def productAttribute = ProductAttribute.findById(params?.id)
+        List<String> attrValues = new ArrayList<String>()
+        if (productAttribute) {
+            attrValues = productAttribute.values
+        }
+        render(template: '/admin/productOption/productOptionAttributeValuesSelect', model: [attributeValues: attrValues])
+    }
+
     /*class ProductAttributeCommand {
         String name
         List<String> attributes

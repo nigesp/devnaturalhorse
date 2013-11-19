@@ -1,4 +1,4 @@
-<div class="control-group  <g:if test="${hasErrors(bean: productAttributeInstance, field: 'name', 'error')}">error</g:if>">
+<div class="cotrol-group  <g:if test="${hasErrors(bean: productAttributeInstance, field: 'name', 'error')}">error</g:if>">
     <label class="control-label" for="name">Name <span>*</span></label>
     <div class="controls">
         <g:textField name="name" value="${productAttributeInstance?.name}"/>

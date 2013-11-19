@@ -22,13 +22,41 @@ class AdminProductOptionController {
 
     def save() {
         def productOptionInstance = new ProductOption(params)
-        if (!productOptionInstance.save(flush: true)) {
-            render(view: "create", model: [productOptionInstance: productOptionInstance])
+        Product productInstance = Product.findById(params?.productId)
+
+        //Check that all the attributeOptions have selected values...
+        def hasAttributeError = false
+        if (productOptionInstance?.productOptionAttributes?.size() > 0) {
+            productOptionInstance.productOptionAttributes.removeAll()
+        }
+        params.list("attributeValue").eachWithIndex { attrVal, idx ->
+            if (attrVal.equals("none")) {
+                hasAttributeError = true
+            } else {
+                ProductOptionAttribute productOptionAttribute = new ProductOptionAttribute()
+                productOptionAttribute.attribute = productInstance.productAttributes.get(idx)
+                productOptionAttribute.value = attrVal
+
+                productOptionInstance.addToProductOptionAttributes(productOptionAttribute)
+            }
+        }
+
+        productOptionInstance.product = productInstance
+
+        productOptionInstance.validate()
+
+        if (productOptionInstance.hasErrors() || hasAttributeError) {
+            productOptionInstance.errors.each {
+                println it
+            }
+            render(view: "/admin/productOption/create", model: [productOptionInstance: productOptionInstance, productInstance: productInstance, hasAttributeError: hasAttributeError])
             return
         }
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'productOption.label', default: 'ProductOption'), productOptionInstance.id])
-        redirect(action: "show", id: productOptionInstance.id)
+        productInstance.addToProductOptions(productOptionInstance)
+        productInstance.save(flush: true)
+
+        redirect(controller: 'adminProduct', action: "show", id: productInstance.id)
     }
 
     def show() {

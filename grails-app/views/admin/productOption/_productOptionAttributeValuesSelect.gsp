@@ -1,7 +1,7 @@
-<div class="fieldcontain ${hasErrors(bean: productOptionInstance, field: 'value', 'error')} required">
-    <label for="value">
-        <g:message code="productOption.value.label" default="Value" />
-        <span class="required-indicator">*</span>
-    </label>
-    <g:select name="attribute" from="${attributeValues}" optionKey="id" optionValue="name" />
+<div class="control-group <g:if test="${hasAttributeError}">error</g:if>">
+    <label class="control-label" for="attribute">${attribute?.name} <span>*</span></label>
+    <div class="controls">
+        <g:select id="attribute" name="attributeValue" from="${attribute?.values}" noSelection="['none':'-- Select Value --']"/>
+        <g:if test="${hasAttributeError}"><span class="help-inline">Please select a value for all attributes.</span></g:if>
+    </div>
 </div>
