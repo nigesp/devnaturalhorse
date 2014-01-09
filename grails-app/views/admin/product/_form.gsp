@@ -59,7 +59,7 @@
 <div class="control-group <g:if test="${hasErrors(bean: productInstance, field: 'price', 'error')}">error</g:if>">
     <label class="control-label" for="price">Price <span>*</span></label>
     <div class="controls">
-        <g:textField name="price" value="${productInstance?.price}"/>
+        <g:textField name="price" value=""/>
         <span class="help-inline"><g:fieldError field="price" bean="${productInstance}" /></span>
     </div>
 </div>
@@ -67,7 +67,7 @@
 <div class="control-group <g:if test="${hasErrors(bean: productInstance, field: 'totalItems', 'error')}">error</g:if>">
     <label class="control-label" for="totalItems">Number of Items <span>*</span></label>
     <div class="controls">
-        <g:textField name="totalItems" value="${productInstance?.totalItems}"/>
+        <g:textField name="totalItems" value=""/>
         <span class="help-inline"><g:fieldError field="totalItems" bean="${productInstance}" /></span>
     </div>
 </div>

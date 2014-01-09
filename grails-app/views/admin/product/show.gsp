@@ -84,25 +84,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <g:if test="${productInstance?.productOptions?.size() > 0}">
-                                        <g:each in="${productInstance?.productOptions}" var="option">
-                                            <tr>
-                                                <g:each in="${option?.productOptionAttributes}" var="attribute">
-                                                    <td>${attribute?.value}</td>
-                                                </g:each>
-                                                <td>${option?.numProducts}</td>
-                                                <td>R ${option?.price}</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                        </g:each>
-                                    </g:if>
-                                    <g:else>
+                                    <g:each in="${productInstance?.productOptions}" var="option">
                                         <tr>
-                                            <td>${productInstance?.totalItems}</td>
-                                            <td>R ${productInstance?.price}</td>
+                                            <g:each in="${option?.productOptionAttributes}" var="attribute">
+                                                <td>${attribute?.value?.value}</td>
+                                            </g:each>
+                                            <td>${option?.numProducts}</td>
+                                            <td>R ${option?.price}</td>
                                             <td><a href="#">Edit</a></td>
                                         </tr>
-                                    </g:else>
+                                    </g:each>
                                 </tbody>
                             </table>
                         </div>
@@ -118,13 +109,13 @@
                                     <g:if test="${productInstance?.productAttributes?.size() > 0}">
                                         <g:each in="${productInstance?.productAttributes}" var="attribute">
                                             <tr>
-                                                <td>${attribute?.name}</td>
+                                                <td><a href="/adminProductAttribute/edit/${attribute?.id}?productId=${productInstance?.id}&template=attribute">${attribute?.name}</a></td>
                                                 <td>
                                                     <g:each in="${attribute?.values}" var="val">
-                                                        ${val} <br/>
+                                                        ${val?.value} <br/>
                                                     </g:each>
                                                 </td>
-                                                <td class="pull-right"><a href="/adminProductAttribute/edit/${attribute?.id}?productId=${productInstance?.id}"><button class="btn btn-mini btn-info">Edit</button></a></td>
+                                                %{--<td class="pull-right"><a href="/adminProductAttribute/edit/${attribute?.id}?productId=${productInstance?.id}"><button class="btn btn-mini btn-info">Edit</button></a></td>--}%
                                             </tr>
                                         </g:each>
                                     </g:if>

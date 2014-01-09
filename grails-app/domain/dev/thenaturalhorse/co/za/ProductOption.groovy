@@ -21,7 +21,7 @@ class ProductOption {
         order(nullable: true)
         basket(nullable: true)
         supplyOrder(nullable: true)
-        productOptionAttributes(nullable: false)
+        productOptionAttributes(nullable: true)
     }
 
     static mapping = {

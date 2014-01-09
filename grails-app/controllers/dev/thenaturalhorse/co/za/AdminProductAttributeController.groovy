@@ -19,7 +19,7 @@ class AdminProductAttributeController {
 
     def create() {
         Product product = Product.findById(params?.productId)
-        render(view: '/admin/productAttribute/create', model: [productAttributeInstance: new ProductAttribute(params), productInstance: product])
+        render(view: '/admin/productAttribute/create', model: [productAttributeInstance: new ProductAttribute(params), productInstance: product, createNewAttribute: true])
     }
 
     def save() {
@@ -31,7 +31,10 @@ class AdminProductAttributeController {
         productAttribute.product = product
         params?.list('values').each {
             if(it != "") {
-                productAttribute.addToValues(it)
+                ProductAttributeValue attributeValue = new ProductAttributeValue()
+                attributeValue.value = it
+
+                productAttribute.addToValues(attributeValue)
             }
         }
 
@@ -40,8 +43,29 @@ class AdminProductAttributeController {
             productAttribute.errors.each {
                 println it
             }
-            render(view: '/admin/productAttribute/create', model: [productAttributeInstance: productAttribute, productInstance: product])
+            render(view: '/admin/productAttribute/create', model: [productAttributeInstance: productAttribute, productInstance: product, createNewAttribute: true])
             return
+        }
+
+        if (product?.productOptions?.size() > 0) {
+            product.productOptions.each {
+                ProductOptionAttribute productOptionAttribute = new ProductOptionAttribute()
+                productOptionAttribute.attribute = productAttribute
+                productOptionAttribute.value = productAttribute.values.get(0)
+
+                it.addToProductOptionAttributes(productOptionAttribute)
+            }
+        } else {
+            ProductOptionAttribute productOptionAttribute = new ProductOptionAttribute()
+            productOptionAttribute.attribute = productAttribute.name
+            productOptionAttribute.value = productAttribute.values.get(0)
+
+            ProductOption productOption = new ProductOption()
+            productOption.addToProductOptionAttributes(productOptionAttribute)
+            productOption.numProducts = 0
+            productOption.price = 0.0
+
+            product.addToProductOptions(productOption)
         }
 
         product.addToProductAttributes(productAttribute)
@@ -70,7 +94,31 @@ class AdminProductAttributeController {
             return
         }
 
+        render(view: '/admin/productAttribute/edit', model: [productAttributeInstance: productAttributeInstance, productInstance: product, templ: params?.template])
+    }
+
+    def editProductAttribute() {
+        def productAttributeInstance = ProductAttribute.get(params.id)
+        Product product = Product?.findById(params?.productId)
+        if (!productAttributeInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'productAttribute.label', default: 'ProductAttribute'), params.id])
+            redirect(action: "list")
+            return
+        }
+
         render(view: '/admin/productAttribute/edit', model: [productAttributeInstance: productAttributeInstance, productInstance: product])
+    }
+
+    def updateProductAttribute() {
+        def productAttributeInstance = ProductAttribute.get(params.id)
+        Product product = Product.findById(params?.productId)
+
+        productAttributeInstance.name = params?.name
+        if (!productAttributeInstance.save(flush: true)) {
+            render(view: '/admin/productAttribute/edit', model: [productAttributeInstance: productAttributeInstance, productInstance: product])
+        }
+
+        redirect(controller: "adminProduct", action: "show", id: product.id)
     }
 
     def update() {

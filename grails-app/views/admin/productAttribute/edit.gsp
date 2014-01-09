@@ -37,14 +37,7 @@
             </div>
             <div class="span12">
                 <div class="slate">
-                    <g:form class="form-horizontal" action="update" >
-                        <fieldset>
-                            <g:render template="/admin/productAttribute/form"/>
-                            <g:hiddenField name="productId" value="${productInstance?.id}" />
-                            <g:hiddenField name="id" value="${productAttributeInstance?.id}" />
-                            <g:submitButton name="Update" class="btn btn-info" value="Update" />
-                        </fieldset>
-                    </g:form>
+                    <g:render template="/admin/productAttribute/${templ}"/>
                 </div>
             </div>
         </div>

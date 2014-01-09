@@ -9,8 +9,6 @@ class Product {
     String manufacturer
     String imageUrl
     String ingredients
-    int totalItems
-    BigDecimal price
     ProductState state
     List productAttributes
 
@@ -40,9 +38,6 @@ class Product {
         ingredients(nullable: true)
         category(nullable: false)
         productAttributes(nullable: true)
-        price(validator: { val, obj ->
-            return (!productOptions() && !price()) ? ['required'] : true
-        })
         state(nullable: false)
     }
 

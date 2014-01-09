@@ -5,7 +5,7 @@ class ProductAttribute {
     String name
     List values
 
-    static hasMany = [values: String]
+    static hasMany = [values: ProductAttributeValue]
 
     static belongsTo = [product: Product]
 
@@ -13,9 +13,16 @@ class ProductAttribute {
     Date lastUpdated
 
     static constraints = {
-        name(nullable: false, blank: false, unique: true)
-        values(nullable: false, minSize: 1)
         product(nullable: false)
+        name(nullable: false, blank: false, validator: { val, obj ->
+            obj?.product?.productAttributes?.each { attribute ->
+                if(attribute?.name == val) {
+                    return ['unique']
+                }
+            }
+            return true
+        })
+        values(nullable: false, minSize: 1)
     }
 
     static mapping = {

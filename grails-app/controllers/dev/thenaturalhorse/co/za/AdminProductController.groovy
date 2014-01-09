@@ -27,13 +27,23 @@ class AdminProductController {
 
         productInstance.imageUrl = productImageService.resizeProductImage(request.getFile("productImage"), productInstance?.name?.replace(' ', '').toLowerCase())
 
-        if (!productInstance.save(flush: true)) {
+        productInstance.validate()
+
+        if (productInstance.hasErrors()) {
             productInstance.errors.each {
                 println it
             }
             render(view: "/admin/product/create", model: [productInstance: productInstance])
             return
         }
+
+        ProductOption productOption = new ProductOption()
+        productOption.price = new BigDecimal(params?.price)
+        productOption.numProducts = Integer.parseInt(params?.totalItems)
+
+        productInstance.addToProductOptions(productOption)
+
+        productInstance.save(flush: true)
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'product.label', default: 'Product'), productInstance.id])
         redirect(action: "show", id: productInstance.id)

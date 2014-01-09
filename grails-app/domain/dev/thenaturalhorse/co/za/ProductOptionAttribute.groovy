@@ -2,8 +2,8 @@ package dev.thenaturalhorse.co.za
 
 class ProductOptionAttribute {
 
-    String attribute
-    String value
+    ProductAttribute attribute
+    ProductAttributeValue value
 
     Date dateCreated
     Date lastUpdated
