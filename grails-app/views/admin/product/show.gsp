@@ -109,13 +109,16 @@
                                     <g:if test="${productInstance?.productAttributes?.size() > 0}">
                                         <g:each in="${productInstance?.productAttributes}" var="attribute">
                                             <tr>
-                                                <td><a href="/adminProductAttribute/edit/${attribute?.id}?productId=${productInstance?.id}&template=attribute">${attribute?.name}</a></td>
+                                                <td>${attribute?.name}</td>
                                                 <td>
                                                     <g:each in="${attribute?.values}" var="val">
-                                                        ${val?.value} <br/>
+                                                        <a href="/adminProductAttributeValue/edit/${val?.id}?productAttributeId=${attribute?.id}&template=value">${val?.value}</a> <br/>
                                                     </g:each>
                                                 </td>
-                                                %{--<td class="pull-right"><a href="/adminProductAttribute/edit/${attribute?.id}?productId=${productInstance?.id}"><button class="btn btn-mini btn-info">Edit</button></a></td>--}%
+                                                <td>
+                                                    <a href="/adminProductAttribute/edit/${attribute?.id}?productId=${productInstance?.id}&template=attribute"><button class="btn btn-mini btn-info">Edit Name</button></a>
+                                                    <a href="/adminProductAttributeValue/create/${attribute?.id}"><button class="btn btn-mini btn-info">Add Value</button></a>
+                                                </td>
                                             </tr>
                                         </g:each>
                                     </g:if>

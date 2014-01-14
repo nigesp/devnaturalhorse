@@ -101,7 +101,7 @@
                                         <g:each in="${supplierInstance?.products}" var="product">
                                             <tr>
                                                 <td><a href="/adminProduct/show/${product?.id}">${product?.name}</a></td>
-                                                <td>${product?.totalItems}</td>
+                                                %{--<td>${product?.totalItems}</td>--}%
                                             </tr>
                                         </g:each>
                                     </g:if>

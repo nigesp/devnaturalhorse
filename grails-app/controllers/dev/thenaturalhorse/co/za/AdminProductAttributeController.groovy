@@ -97,6 +97,21 @@ class AdminProductAttributeController {
         render(view: '/admin/productAttribute/edit', model: [productAttributeInstance: productAttributeInstance, productInstance: product, templ: params?.template])
     }
 
+    def editAttributeValue() {
+        def attributeValue = ProductAttributeValue.findById(params?.id)
+        def productInstance = Product.findById(params?.productId)
+
+        if (!attributeValue) {
+            if (!productInstance) {
+                redirect(controller: 'adminDashboard', action: 'index')
+            } else {
+                redirect(controller: "adminProduct", action: "show", id: productInstance.id)
+            }
+        }
+
+        render(view: '/admin/productAttribute')
+    }
+
     def editProductAttribute() {
         def productAttributeInstance = ProductAttribute.get(params.id)
         Product product = Product?.findById(params?.productId)

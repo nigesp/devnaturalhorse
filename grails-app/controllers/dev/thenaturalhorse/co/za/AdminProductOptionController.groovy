@@ -26,16 +26,14 @@ class AdminProductOptionController {
 
         //Check that all the attributeOptions have selected values...
         def hasAttributeError = false
-        if (productOptionInstance?.productOptionAttributes?.size() > 0) {
-            productOptionInstance.productOptionAttributes.removeAll()
-        }
-        params.list("attributeValue").eachWithIndex { attrVal, idx ->
-            if (attrVal.equals("none")) {
+        params.list("attributeValueId").eachWithIndex { attrVal, idx ->
+            if (attrVal.equals(-1)) {
                 hasAttributeError = true
             } else {
                 ProductOptionAttribute productOptionAttribute = new ProductOptionAttribute()
-                productOptionAttribute.attribute = productInstance.productAttributes.get(idx)
-                productOptionAttribute.value = attrVal
+                def productAttributeValueInstance = ProductAttributeValue.findById(attrVal)
+                productOptionAttribute.attribute = productAttributeValueInstance.productAttribute
+                productOptionAttribute.value = productAttributeValueInstance
 
                 productOptionInstance.addToProductOptionAttributes(productOptionAttribute)
             }

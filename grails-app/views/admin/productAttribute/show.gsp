@@ -37,7 +37,7 @@
 					<span id="productAttributeValues-label" class="property-label"><g:message code="productAttribute.productAttributeValues.label" default="Product Attribute Values" /></span>
 					
 						<g:each in="${productAttributeInstance.productAttributeValues}" var="p">
-						<span class="property-value" aria-labelledby="productAttributeValues-label"><g:link controller="productAttributeValue" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="productAttributeValues-label"><g:link controller="adminProductAttributeValue" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>
