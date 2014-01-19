@@ -6,6 +6,8 @@ class AdminProductOptionController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    def ProductOptionService productOptionService
+
     def index() {
         redirect(action: "list", params: params)
     }
@@ -41,6 +43,18 @@ class AdminProductOptionController {
 
         productOptionInstance.product = productInstance
 
+        productOptionService.populateOptionAttributes(productOptionInstance)
+
+        productInstance.productOptions.each {
+            productOptionService.populateOptionAttributes(it)
+        }
+
+        productInstance.productOptions.each {
+            if(it.optionAttributes == productOptionInstance.optionAttributes) {
+                hasAttributeError = true
+            }
+        }
+
         productOptionInstance.validate()
 
         if (productOptionInstance.hasErrors() || hasAttributeError) {
@@ -70,43 +84,32 @@ class AdminProductOptionController {
 
     def edit() {
         def productOptionInstance = ProductOption.get(params.id)
+
         if (!productOptionInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'productOption.label', default: 'ProductOption'), params.id])
-            redirect(action: "list")
+            redirect(controller: 'adminDashboard', action: 'index')
             return
         }
 
-        [productOptionInstance: productOptionInstance]
+        render(view: '/admin/productOption/edit', model: [productOptionInstance: productOptionInstance])
     }
 
     def update() {
         def productOptionInstance = ProductOption.get(params.id)
+
         if (!productOptionInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'productOption.label', default: 'ProductOption'), params.id])
-            redirect(action: "list")
+            redirect(controller: 'adminDashboard', action: 'index')
             return
         }
 
-        if (params.version) {
-            def version = params.version.toLong()
-            if (productOptionInstance.version > version) {
-                productOptionInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                        [message(code: 'productOption.label', default: 'ProductOption')] as Object[],
-                        "Another user has updated this ProductOption while you were editing")
-                render(view: "edit", model: [productOptionInstance: productOptionInstance])
-                return
-            }
-        }
-
-        productOptionInstance.properties = params
+        //Set new properties on product option...
+        productOptionInstance.price = new BigDecimal(params?.price)
 
         if (!productOptionInstance.save(flush: true)) {
             render(view: "edit", model: [productOptionInstance: productOptionInstance])
             return
         }
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'productOption.label', default: 'ProductOption'), productOptionInstance.id])
-        redirect(action: "show", id: productOptionInstance.id)
+        redirect(controller: 'adminProduct', action: "show", id: productOptionInstance.product.id)
     }
 
     def delete() {

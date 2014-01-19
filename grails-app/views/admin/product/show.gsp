@@ -91,7 +91,7 @@
                                             </g:each>
                                             <td>${option?.numProducts}</td>
                                             <td>R ${option?.price}</td>
-                                            <td><a href="#">Edit</a></td>
+                                            <td><a href="/adminProductOption/edit/${option?.id}">Edit</a></td>
                                         </tr>
                                     </g:each>
                                 </tbody>

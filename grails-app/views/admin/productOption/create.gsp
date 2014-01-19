@@ -39,7 +39,7 @@
                     <div class="slate">
                         <g:form class="form-horizontal" action="save" >
                             <fieldset>
-                                <g:render template="/admin/productOption/form"/>
+                                <g:render template="/admin/productOption/form_create"/>
                                 <g:submitButton name="create" class="btn btn-info" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                             </fieldset>
                             <g:hiddenField name="productId" value="${productInstance?.id}"/>

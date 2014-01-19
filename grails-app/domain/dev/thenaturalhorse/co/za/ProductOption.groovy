@@ -5,6 +5,7 @@ class ProductOption {
     BigDecimal price
     int numProducts
     List<ProductOptionAttribute> productOptionAttributes
+    String optionAttributes
 
     static belongsTo = [product: Product, order: ClientOrder, basket: Basket]
 
@@ -27,4 +28,6 @@ class ProductOption {
     static mapping = {
         autoTimestamp true
     }
+
+    static transients = ['optionAttributes']
 }
