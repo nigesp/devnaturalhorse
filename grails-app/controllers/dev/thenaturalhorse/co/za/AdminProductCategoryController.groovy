@@ -4,7 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class AdminProductCategoryController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST"]
 
     def index() {
         redirect(action: "list", params: params)
@@ -84,17 +84,30 @@ class AdminProductCategoryController {
 
     def delete() {
         def productCategoryInstance = ProductCategory.get(params.id)
+        def categoryName = productCategoryInstance?.name
+
         if (!productCategoryInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'productCategory.label', default: 'ProductCategory'), params.id])
             redirect(action: "list")
             return
         }
 
+        if (productCategoryInstance?.products?.size() > 0) {
+            flash.message = message(code: 'default.not.deleted.message', args: ['Product Category', categoryName, 'This product category has products inside it.'])
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(action: "list")
+            return
+        }
+
         try {
             productCategoryInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'productCategory.label', default: 'ProductCategory'), params.id])
+			flash.message = message(code: 'default.deleted.message', args: ['Product Category', categoryName])
+            flash.messageType = "alert-info"
+            flash.messageHeading = "Success"
             redirect(action: "list")
         }
+
         catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'productCategory.label', default: 'ProductCategory'), params.id])
             redirect(action: "show", id: params.id)

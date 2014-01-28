@@ -30,7 +30,7 @@
                     <div class="btn-group pull-right">
                         <a href="/adminProductCategory/edit/${productCategoryInstance?.id}"><button class="btn btn-info">Edit</button></a>
                     </div>
-                    <h2>${productCategoryInstance?.name}</h2>
+                    <h2>${productCategoryInstance?.name} (${productCategoryInstance?.products?.size()})</h2>
                 </div>
                 <div class="row">
                     <div class="span12">

@@ -1,8 +1,13 @@
 package dev.thenaturalhorse.co.za
 
+import dev.thenaturalhorse.co.za.enums.SupplyOrderState
+
 class SupplyOrder {
 
-    static hasMany = [items: ProductOption]
+    BigDecimal total
+    SupplyOrderState state
+
+    static hasMany = [items: SupplyOrderItem]
 
     static hasOne = [supplier: Supplier]
 
@@ -10,7 +15,10 @@ class SupplyOrder {
     Date lastUpdated
 
     static constraints = {
-        items(nullable: false)
+        total(nullable: false)
+        state(nullable: false)
+        items(nullable: true)
+        supplier(nullable: false)
     }
 
     static mapping = {

@@ -24,9 +24,9 @@
         <div class="main-area dashboard">
             <div class="container">
                 <g:if test="${flash?.message}">
-                    <div class="alert alert-error">
+                    <div class="alert ${flash?.messageType}">
                         <a class="close" data-dismiss="alert" href="#">x</a>
-                        <h4 class="alert-heading">Error</h4>
+                        <h4 class="alert-heading">${flash?.messageHeading}</h4>
                         ${flash?.message}
                     </div>
                 </g:if>
@@ -53,6 +53,7 @@
                                 <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Number of Products</th>
                                     <th>Last Updated</th>
                                     <th class="actions">Actions</th>
                                 </tr>
@@ -61,13 +62,18 @@
                                 <g:each in="${productCategoryInstanceList}" status="i" var="categoryInstance">
                                     <tr>
                                         <td>
-                                            <a href="/adminSupplier/show/${categoryInstance.id}">${categoryInstance.name}</a>
+                                            <a href="/adminProductCategory/show/${categoryInstance.id}">${categoryInstance.name}</a>
                                         </td>
+                                        <td>${categoryInstance?.products?.size()}</td>
                                         <td>
                                             <span><g:formatDate format="dd MMMM yyyy" date="${categoryInstance?.lastUpdated}"/></span>
                                         </td>
                                         <td class="actions">
-                                            <a class="btn btn-small btn-danger" data-toggle="modal" href="#removeItem">Remove</a>
+                                            %{--<g:form action="delete" method="POST">
+                                                <g:hiddenField name="id" value="${categoryInstance.id}" />
+                                                <g:submitButton name="delete" value="Delete" class="btn btn-small btn-danger" data-toggle="modal" />
+                                            </g:form>--}%
+                                            <a class="btn btn-small btn-danger" data-toggle="modal" href="/adminProductCategory/delete/${categoryInstance.id}">Delete</a>
                                             <a class="btn btn-small btn-primary" href="/adminProductCategory/show/${categoryInstance.id}">View</a>
                                         </td>
                                     </tr>
