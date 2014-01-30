@@ -1,17 +1,17 @@
 package dev.thenaturalhorse.co.za
 
-class SupplyOrderItem {
+class SupplierOrderItem {
 
     Integer numItems
     BigDecimal pricePerOption
 
-    static hasMany = [productOptions : ProductOption]
+    static hasOne = [productOption : ProductOption]
 
-    static belongsTo = [supplyOrder : SupplyOrder]
+    static belongsTo = [supplyOrder : SupplierOrder]
 
     static constraints = {
         numItems(nullable: false)
         pricePerOption(nullable: false)
-        productOptions(nullable: false)
+        productOption(nullable: false)
     }
 }

@@ -65,7 +65,7 @@
                         <div class="slate">
                             <div class="page-header">
                                 <div class="pull-right">
-                                    <button class="btn btn-success btn-primary">Create new supply order</button>
+                                    <a href="/adminSupplierOrder/create/${supplierInstance?.id}"><button class="btn btn-success btn-primary">Create new supply order</button></a>
                                 </div>
                                 <h2>Supplier Orders</h2>
                             </div>

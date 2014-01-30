@@ -9,9 +9,9 @@ class ProductOption {
 
     static belongsTo = [product: Product, order: ClientOrder, basket: Basket]
 
-    static hasOne = [supplyOrder: SupplyOrder]
+    static hasOne = [supplierOrderItem: SupplierOrderItem]
 
-    static hasMany = [productOptionAttributes: ProductOptionAttribute]
+    static hasMany = [productOptionAttributes: ProductOptionAttribute, supplyOrderItems: SupplierOrderItem]
 
     Date dateCreated
     Date lastUpdated
@@ -21,7 +21,7 @@ class ProductOption {
         product(nullable: false)
         order(nullable: true)
         basket(nullable: true)
-        supplyOrder(nullable: true)
+        supplierOrderItem(nullable: true)
         productOptionAttributes(nullable: true)
     }
 

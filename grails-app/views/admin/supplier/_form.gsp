@@ -172,7 +172,7 @@
         </g:each>
         <li class="add">
             <g:link controller="supplyOrder" action="create"
-                    params="['supplier.id': supplierInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'supplyOrder.label', default: 'SupplyOrder')])}</g:link>
+                    params="['supplier.id': supplierInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'supplyOrder.label', default: 'SuplyOrder')])}</g:link>
         </li>
     </ul>
 

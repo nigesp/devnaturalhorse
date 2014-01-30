@@ -2,14 +2,14 @@ package dev.thenaturalhorse.co.za
 
 import dev.thenaturalhorse.co.za.enums.SupplyOrderState
 
-class SupplyOrder {
+class SupplierOrder {
 
     BigDecimal total
     SupplyOrderState state
 
-    static hasMany = [items: SupplyOrderItem]
+    static hasMany = [items: SupplierOrderItem]
 
-    static hasOne = [supplier: Supplier]
+    static belongsTo = [supplier: Supplier]
 
     Date dateCreated
     Date lastUpdated

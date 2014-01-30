@@ -10,7 +10,7 @@ class Supplier {
     PhysicalAddress physicalAddress
     DomainModelState status
 
-    static hasMany = [products: Product, supplyOrders: SupplyOrder, contacts: Contact]
+    static hasMany = [products: Product, supplyOrders: SupplierOrder, contacts: Contact]
 
     Date dateCreated
     Date lastUpdated
