@@ -1,0 +1,1 @@
+<a href="/adminSupplierOrder/paid/${supplierOrderInstance?.id}"><button class="btn btn-mini btn-info">Paid</button></a>

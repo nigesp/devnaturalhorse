@@ -30,4 +30,11 @@ class ProductOption {
     }
 
     static transients = ['optionAttributes']
+
+    static namedQueries = {
+        findAllForSupplier { supplier ->
+            createAlias('product', 'p')
+            eq('p.supplier', supplier)
+        }
+    }
 }

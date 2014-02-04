@@ -70,19 +70,32 @@
                                 <h2>Supplier Orders</h2>
                             </div>
                             <table class="orders-table table">
+                                <thead>
+                                    <tr>
+                                        <td>Date Created</td>
+                                        <td>Order Size</td>
+                                        <td>Status</td>
+                                        <td>Actions</td>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                <g:if test="${supplierInstance?.supplyOrders?.size() > 0}">
-                                    <g:each in="${supplierInstance?.supplyOrders}" var="order">
-                                        <tr>
-                                            <td><a href="#">${order?.id}</a></td>
-                                            <td>${order?.items?.size()}</td>
-                                            <td>${order?.dateCreated}</td>
-                                        </tr>
-                                    </g:each>
-                                </g:if>
-                                <g:else>
-                                    <tr>No orders have been made to this supplier.</tr>
-                                </g:else>
+                                    <g:if test="${supplierInstance?.supplyOrders?.size() > 0}">
+                                        <g:each in="${supplierInstance?.supplyOrders}" var="order">
+                                            <tr>
+                                                <td><g:formatDate format="dd MMM yyyy" date="${order?.dateCreated}"/></td>
+                                                <td>${order?.items?.size()}</td>
+                                                <td>
+                                                    <g:supplyOrderState bean="${order}" />
+                                                </td>
+                                                <td>
+                                                    <g:supplyOrderButton bean="${order}" />
+                                                </td>
+                                            </tr>
+                                        </g:each>
+                                    </g:if>
+                                    <g:else>
+                                        <tr>No orders have been made to this supplier.</tr>
+                                    </g:else>
                                 </tbody>
                             </table>
                         </div>

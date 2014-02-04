@@ -23,5 +23,19 @@ class AdminSupplierOrderController {
         render(view: '/admin/supplierOrder/create', model: [supplierOrderInstance: order])
     }
 
+    def addProduct() {
+        SupplierOrder order = SupplierOrder.findById(params?.id)
+
+        if (!order) {
+            flash.message = message(code: 'default.not.found.message', args: ['Supplier Order', params?.id])
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(action: "list")
+            return
+        }
+
+        render(view: '/admin/supplierOrder/edit', model: [supplierOrderInstance: order, productOptionList: ProductOption.findAllForSupplier(order?.supplier)])
+    }
+
 
 }
