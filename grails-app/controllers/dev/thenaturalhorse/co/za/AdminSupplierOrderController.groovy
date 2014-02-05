@@ -34,6 +34,14 @@ class AdminSupplierOrderController {
             return
         }
 
+        if(order.state != SupplyOrderState.OPEN) {
+            flash.message = message(code: 'supplierOrder.wrong.state', args: [order?.id, 'OPEN', 'add products to it'])
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(controller: 'adminSupplier', action: 'show', id: order?.supplier?.id)
+            return
+        }
+
         render(view: '/admin/supplierOrder/edit', model: [supplierOrderInstance: order, productOptionList: ProductOption.findAllForSupplier(order?.supplier)])
     }
 

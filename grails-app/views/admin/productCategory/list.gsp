@@ -23,13 +23,7 @@
         </div>
         <div class="main-area dashboard">
             <div class="container">
-                <g:if test="${flash?.message}">
-                    <div class="alert ${flash?.messageType}">
-                        <a class="close" data-dismiss="alert" href="#">x</a>
-                        <h4 class="alert-heading">${flash?.messageHeading}</h4>
-                        ${flash?.message}
-                    </div>
-                </g:if>
+                <g:render template="/common/message" />
                 <div class="row">
                     <div class="span12 listing-buttons">
                         <a href="/adminProductCategory/create"><button class="btn btn-success btn-primary">Add New Product Category</button></a>
