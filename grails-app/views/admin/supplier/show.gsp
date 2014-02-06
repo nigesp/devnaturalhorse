@@ -94,7 +94,7 @@
                                         </g:each>
                                     </g:if>
                                     <g:else>
-                                        <tr>No orders have been made to this supplier.</tr>
+                                        <tr><td>No orders have been made to this supplier.</td></tr>
                                     </g:else>
                                 </tbody>
                             </table>

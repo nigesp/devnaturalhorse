@@ -13,5 +13,6 @@ class SupplierOrderItem {
         numItems(nullable: false)
         pricePerOption(nullable: false)
         productOption(nullable: false)
+        supplyOrder(nullable: false)
     }
 }
