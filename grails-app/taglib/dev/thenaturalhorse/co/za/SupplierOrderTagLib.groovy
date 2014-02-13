@@ -53,4 +53,11 @@ class SupplierOrderTagLib {
                 break
         }
     }
+
+    def supplierOrderItemTotalPrice = { attr ->
+        SupplierOrderItem orderItem = attr?.bean
+
+        BigDecimal total = orderItem.pricePerOption.multiply(orderItem?.numberOfItems)
+        out << 'R ' + total
+    }
 }

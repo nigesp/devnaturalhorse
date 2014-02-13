@@ -2,7 +2,7 @@ package dev.thenaturalhorse.co.za
 
 class SupplierOrderItem {
 
-    Integer numItems
+    int numberOfItems
     BigDecimal pricePerOption
 
     static hasOne = [productOption : ProductOption]
@@ -10,7 +10,13 @@ class SupplierOrderItem {
     static belongsTo = [supplyOrder : SupplierOrder]
 
     static constraints = {
-        numItems(nullable: false)
+        numberOfItems(nullable: false, validator: { val, obj ->
+            if(val < 1) {
+                return ['minValue']
+            } else {
+                return true
+            }
+        })
         pricePerOption(nullable: false)
         productOption(nullable: false)
         supplyOrder(nullable: false)

@@ -6,13 +6,15 @@
         <g:set var="hasAttributes" value="${false}" />
     </g:else>
     <div class="control-group">
-        <label class="control-label">Product Option #${i + 1}</label>
+        <label class="control-label">Product Option ${i + 1}</label>
         <div class="controls">
             <g:if test="${hasAttributes}">
-                <g:checkBox class="pull-left" name="productOptionId" value="${productOption?.id}" checked="false" />
+                %{--<g:checkBox class="pull-left" name="productOptionId" value="${productOption?.id}" checked="false" />--}%
+                <g:radio class="pull-left" name="productOptionId" value="${productOption?.id}" checked="false"/>
             </g:if>
             <g:else>
-                <g:checkBox class="pull-left" name="productOptionId" value="${productOption?.id}" checked="true" />
+                %{--<g:checkBox class="pull-left" name="productOptionId" value="${productOption?.id}" checked="true" />--}%
+                <g:radio class="pull-left" name="productOptionId" value="${productOption?.id}" checked="true" />
             </g:else>
             <ul class="pull-left">
                 <g:if test ="${hasAttributes}">

@@ -83,12 +83,13 @@
                                         <g:each in="${supplierInstance?.supplyOrders}" var="order">
                                             <tr>
                                                 <td><g:formatDate format="dd MMM yyyy" date="${order?.dateCreated}"/></td>
-                                                <td>${order?.items?.size()}</td>
+                                                <td><g:supplierOrderTotalItems bean="${order}" /></td>
                                                 <td>
                                                     <g:supplyOrderState bean="${order}" />
                                                 </td>
                                                 <td>
-                                                    <g:supplyOrderButton bean="${order}" />
+                                                    <a href="/adminSupplierOrder/show/${order?.id}"><button class="btn btn-mini btn-info">View</button></a>
+                                                    %{--<g:supplyOrderButton bean="${order}" />--}%
                                                 </td>
                                             </tr>
                                         </g:each>

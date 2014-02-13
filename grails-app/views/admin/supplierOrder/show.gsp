@@ -36,6 +36,9 @@
                             </div>
                             <p>State : ${supplierOrderInstance?.state}</p>
                             <div class="page-header">
+                                <div class="pull-right">
+                                    <a href="/adminSupplierOrderItem/create/${supplierOrderInstance?.id}"><button class="btn btn-success btn-primary">Add product</button></a>
+                                </div>
                                 <h2>Products</h2>
                             </div>
                             <table class="table">
@@ -43,20 +46,24 @@
                                     <tr>
                                         <td>Name</td>
                                         <td>Options</td>
-                                        <td>Price</td>
+                                        <td>Price Per Item</td>
+                                        <td>Num Items</td>
+                                        <td>Total Price</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <g:if test="${supplierOrderInstance?.items?.size() > 0}">
                                         <g:each in="${supplierOrderInstance?.items}" var="productOption">
                                             <tr>
-                                                <td>${productOption?.product?.name}</td>
+                                                <td>${productOption?.productOption?.product?.name}</td>
                                                 <td>
-                                                    <g:each in="${productOption?.productOptionAttributes}" var="optionAttribute">
+                                                    <g:each in="${productOption?.productOption?.productOptionAttributes}" var="optionAttribute">
                                                         ${optionAttribute?.attribute?.name} : ${optionAttribute?.value?.value} <br/>
                                                     </g:each>
                                                 </td>
-                                                <td>${productOption?.pricePerOption}</td>
+                                                <td>R ${productOption?.pricePerOption}</td>
+                                                <td>${productOption?.numberOfItems}</td>
+                                                <td><g:supplierOrderItemTotalPrice bean="${productOption}" /></td>
                                             </tr>
                                         </g:each>
                                     </g:if>
