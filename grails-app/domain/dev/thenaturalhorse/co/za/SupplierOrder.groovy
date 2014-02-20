@@ -24,4 +24,11 @@ class SupplierOrder {
     static mapping = {
         autoTimestamp true
     }
+
+    static namedQueries = {
+        containsProductOption { productOption ->
+            createAlias("items", "item")
+            eq("item.productOption", productOption)
+        }
+    }
 }

@@ -60,4 +60,16 @@ class SupplierOrderTagLib {
         BigDecimal total = orderItem.pricePerOption.multiply(orderItem?.numberOfItems)
         out << 'R ' + total
     }
+
+    def supplierOrderTotalPrice = { attr ->
+        SupplierOrder order = attr?.bean
+        BigDecimal orderTotal = new BigDecimal(0)
+
+        order.items.each {
+            BigDecimal orderItemTotal = it.pricePerOption.multiply(new BigDecimal(it.numberOfItems))
+            orderTotal = orderTotal.add(orderItemTotal)
+        }
+
+        out << '<div>R ' + orderTotal + '</div>'
+    }
 }

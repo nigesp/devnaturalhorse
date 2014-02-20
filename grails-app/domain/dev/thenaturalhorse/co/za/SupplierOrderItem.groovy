@@ -18,7 +18,13 @@ class SupplierOrderItem {
             }
         })
         pricePerOption(nullable: false)
-        productOption(nullable: false)
+        productOption(nullable: false, validator: { val, obj ->
+            if(!obj?.id && obj.supplyOrder == SupplierOrder.containsProductOption(val).get()) {
+                return ['duplicate']
+            } else {
+                return true
+            }
+        })
         supplyOrder(nullable: false)
     }
 }
