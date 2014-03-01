@@ -121,7 +121,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                                             <a href="/adminSupplierOrderItem/delete/${orderItem?.id}"><button type="button" class="btn btn-danger btn-primary">Delete</button></a>
                                                         </div>
                                                     </div>
@@ -134,6 +134,7 @@
                                     </g:else>
                                 </tbody>
                             </table>
+                            <g:supplierOrderActionButton bean="${supplierOrderInstance}" />
                         </div>
                     </div>
                 </div>

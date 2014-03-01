@@ -35,7 +35,7 @@
                     <div class="slate">
                         <g:form class="form-horizontal" action="${actionName}" >
                             <fieldset>
-                                <g:render template="/admin/supplierOrder/form-add-product"/>
+                                <g:render template="/admin/supplierOrder/forms/form-add-product"/>
                                 <g:submitButton name="add" class="btn btn-info" value="Add To Supplier Order" />
                             </fieldset>
                         </g:form>

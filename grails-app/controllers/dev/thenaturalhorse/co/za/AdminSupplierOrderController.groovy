@@ -36,4 +36,13 @@ class AdminSupplierOrderController {
 
         redirect(action: 'show', id: order?.id)
     }
+
+    def submitToSupplier() {
+        SupplierOrder order = SupplierOrder.findById(params?.id)
+
+        order.state = SupplyOrderState.ORDERED
+        order.save(flush: true)
+
+        render(view: '/admin/supplierOrder/show', model: [supplierOrderInstance: order])
+    }
 }
