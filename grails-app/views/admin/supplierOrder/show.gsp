@@ -65,7 +65,9 @@
                         <div class="slate">
                             <div class="page-header">
                                 <div class="pull-right">
-                                    <a href="/adminSupplierOrderItem/create/${supplierOrderInstance?.id}"><button class="btn btn-success btn-primary">Add product</button></a>
+                                    <g:if test="${supplierOrderInstance?.state == dev.thenaturalhorse.co.za.enums.SupplyOrderState.OPEN}">
+                                        <a href="/adminSupplierOrderItem/create/${supplierOrderInstance?.id}"><button class="btn btn-success btn-primary">Add product</button></a>
+                                    </g:if>
                                 </div>
                                 <h2>Products</h2>
                             </div>
@@ -77,7 +79,9 @@
                                         <td>Price Per Item</td>
                                         <td>Num Items</td>
                                         <td>Total Price</td>
-                                        <td>Actions</td>
+                                        <g:if test="${supplierOrderInstance?.state == dev.thenaturalhorse.co.za.enums.SupplyOrderState.OPEN || supplierOrderInstance?.state == dev.thenaturalhorse.co.za.enums.SupplyOrderState.RECEIVED}">
+                                            <td>Actions</td>
+                                        </g:if>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,10 +102,7 @@
                                                 <td>R ${orderItem?.pricePerOption}</td>
                                                 <td>${orderItem?.numberOfItems}</td>
                                                 <td><g:supplierOrderItemTotalPrice bean="${orderItem}" /></td>
-                                                <td>
-                                                    <a href="/adminSupplierOrderItem/edit/${orderItem?.id}"><button class="btn btn-mini btn-info">Edit</button></a>
-                                                    <button class="btn btn-mini btn-danger" data-toggle="modal" data-target="#myModal">Delete</button>
-                                                </td>
+                                                <g:supplyOrderItemActionButton bean="${orderItem}" />
                                             </tr>
                                             <!-- Modal -->
                                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

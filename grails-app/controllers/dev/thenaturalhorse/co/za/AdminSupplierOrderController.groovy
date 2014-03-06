@@ -40,7 +40,32 @@ class AdminSupplierOrderController {
     def submitToSupplier() {
         SupplierOrder order = SupplierOrder.findById(params?.id)
 
+        if (!order) {
+            flash.message = message(code: 'default.not.found.message', args: ['Supplier Order', params?.id])
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(action: "list")
+            return
+        }
+
         order.state = SupplyOrderState.ORDERED
+        order.save(flush: true)
+
+        render(view: '/admin/supplierOrder/show', model: [supplierOrderInstance: order])
+    }
+
+    def received() {
+        SupplierOrder order = SupplierOrder.findById(params?.id)
+
+        if (!order) {
+            flash.message = message(code: 'default.not.found.message', args: ['Supplier Order', params?.id])
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(action: "list")
+            return
+        }
+
+        order.state = SupplyOrderState.RECEIVED
         order.save(flush: true)
 
         render(view: '/admin/supplierOrder/show', model: [supplierOrderInstance: order])

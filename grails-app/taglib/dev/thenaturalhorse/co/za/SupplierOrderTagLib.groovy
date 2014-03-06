@@ -83,7 +83,7 @@ class SupplierOrderTagLib {
                 }
                 break
             case SupplyOrderState.ORDERED :
-                out << '<span class=\"label label-success\">ORDERED</span>'
+                out << g.render(template: '/admin/supplierOrder/buttons/button-received', model: [supplierOrderInstance: order, now: new Date()])
                 break
             case SupplyOrderState.RECEIVED :
                 out << '<span class=\"label\">RECIEVED</span>'
@@ -96,6 +96,31 @@ class SupplierOrderTagLib {
                 break
             case SupplyOrderState.PAID :
                 out << '<span class=\"label label-inverse\">PAID</span>'
+                break
+        }
+    }
+
+    def supplyOrderItemActionButton = { attr ->
+        SupplierOrderItem orderItem = attr?.bean
+
+        switch (orderItem.supplyOrder.state) {
+            case SupplyOrderState.OPEN :
+                out << g.render(template: '/admin/supplierOrder/templates/item-actions-open', model: [orderItemInstance: orderItem])
+                break
+            case SupplyOrderState.ORDERED :
+                out << ''
+                break
+            case SupplyOrderState.RECEIVED :
+                out << g.render(template: '/admin/supplierOrder/templates/item-actions-received', model: [orderItemInstance: orderItem])
+                break
+            case SupplyOrderState.PENDING_REORDER :
+                out << ''
+                break
+            case SupplyOrderState.PROCESSED :
+                out << ''
+                break
+            case SupplyOrderState.PAID :
+                out << ''
                 break
         }
     }

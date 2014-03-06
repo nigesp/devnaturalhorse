@@ -6,6 +6,7 @@ class SupplierOrderItem {
     BigDecimal pricePerOption
 
     static hasOne = [productOption : ProductOption]
+    static hasMany = [defectItems: SupplierOrderItemDefect]
 
     static belongsTo = [supplyOrder : SupplierOrder]
 

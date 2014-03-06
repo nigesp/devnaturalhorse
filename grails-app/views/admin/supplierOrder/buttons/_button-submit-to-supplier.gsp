@@ -12,11 +12,16 @@
                 Are you sure you want to submit this order to ${supplierOrderInstance?.supplier?.name}:<br/>
                 <ul>
                     <g:each in="${supplierOrderInstance?.items}" var="item">
-                        <h3>${item?.productOption?.product?.name}:</h3>
+                        <h3>${item?.numberOfItems} x ${item?.productOption?.product?.name}:</h3>
                         <ul>
-                            <g:each in="${item?.productOption?.productOptionAttributes}" var="attribute">
-                                <li>${attribute?.attribute?.name} : ${attribute?.value?.value}</li>
-                            </g:each>
+                            <g:if test="${item?.productOption?.productOptionAttributes?.size() > 0}">
+                                <g:each in="${item?.productOption?.productOptionAttributes}" var="attribute">
+                                    <li>${attribute?.attribute?.name} : ${attribute?.value?.value}</li>
+                                </g:each>
+                            </g:if>
+                            <g:else>
+                                <li>Product has no attributes.</li>
+                            </g:else>
                         </ul>
                     </g:each>
                 </ul>
