@@ -4,21 +4,24 @@ import dev.thenaturalhorse.co.za.enums.SupplyOrderState
 
 class SupplierOrder {
 
+    String orderNum
     BigDecimal total
     SupplyOrderState state
 
-    static hasMany = [items: SupplierOrderItem]
+    static hasMany = [items: SupplierOrderItem, reOrders: SupplierOrder]
 
-    static belongsTo = [supplier: Supplier]
+    static belongsTo = [supplier: Supplier, parentOrder: SupplierOrder]
 
     Date dateCreated
     Date lastUpdated
 
     static constraints = {
+        orderNum(nullable: false)
         total(nullable: false)
         state(nullable: false)
         items(nullable: true)
         supplier(nullable: false)
+        reOrders(nullable: true)
     }
 
     static mapping = {

@@ -5,20 +5,22 @@ import dev.thenaturalhorse.co.za.enums.DomainModelState
 class Supplier {
 
     String name
+    String supplierCode
     Integer daysFromOrderToDelivery
     PostalAddress postalAddress
     PhysicalAddress physicalAddress
     DomainModelState status
 
-    static hasMany = [products: Product, supplyOrders: SupplierOrder, contacts: Contact]
+    static hasMany = [products: Product, supplierOrders: SupplierOrder, contacts: Contact]
 
     Date dateCreated
     Date lastUpdated
 
     static constraints = {
         name(nullable: false, blank: false)
+        supplierCode(nullable: false, blank: false, unique: true)
         products(nullable: true)
-        supplyOrders(nullable: true)
+        supplierOrders(nullable: true)
         daysFromOrderToDelivery(nullable: false)
         postalAddress(nullable: true)
         physicalAddress(nullable: true)

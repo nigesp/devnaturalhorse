@@ -25,7 +25,6 @@ class AdminSupplierController {
 
     def save() {
         def supplierInstance = new Supplier(params)
-        println(params?.status)
         supplierInstance?.status = params?.status
         if (!supplierInstance.save(flush: true)) {
             supplierInstance?.errors?.each {

@@ -8,6 +8,14 @@
     </div>
 </div>
 
+<div class="control-group   <g:if test="${hasErrors(bean: supplierInstance, field: 'supplierCode', 'error')}">error</g:if>">
+    <label class="control-label" for="supplierCode">Supplier Code<span>*</span></label>
+    <div class="controls">
+        <g:textField class="input-xlarge focused" id="supplierCode" name="supplierCode" value="${supplierInstance?.supplierCode}"/>
+        <span class="help-inline"><g:fieldError field="supplierCode" bean="${supplierInstance}" /></span>
+    </div>
+</div>
+
 <div class="control-group">
     <label class="control-label" for="name">Days for delivery
         <span class="required-indicator">*</span>
@@ -160,14 +168,14 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: supplierInstance, field: 'supplyOrders', 'error')} ">
-    <label for="supplyOrders">
-        <g:message code="supplier.supplyOrders.label" default="Supply Orders"/>
+<div class="fieldcontain ${hasErrors(bean: supplierInstance, field: 'supplierOrders', 'error')} ">
+    <label for="supplierOrders">
+        <g:message code="supplier.supplierOrders.label" default="Supply Orders"/>
 
     </label>
 
     <ul class="one-to-many">
-        <g:each in="${supplierInstance?.supplyOrders ?}" var="s">
+        <g:each in="${supplierInstance?.supplierOrders ?}" var="s">
             <li><g:link controller="supplyOrder" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></li>
         </g:each>
         <li class="add">

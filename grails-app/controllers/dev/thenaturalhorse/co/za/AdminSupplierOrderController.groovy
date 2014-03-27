@@ -4,6 +4,8 @@ import dev.thenaturalhorse.co.za.enums.SupplyOrderState
 
 class AdminSupplierOrderController {
 
+    def supplierOrderService
+
     def list() {
         render(view: '/admin/supplierOrder/list', model: [supplierOrderList: SupplierOrder.findAll()])
     }
@@ -27,10 +29,11 @@ class AdminSupplierOrderController {
 
         SupplierOrder order = new SupplierOrder()
         order.supplier = supplierInstance
+        order.orderNum = supplierOrderService.createOrderNumber(supplierInstance)
         order.state = SupplyOrderState.OPEN
         order.total = 0.00
 
-        supplierInstance.addToSupplyOrders(order)
+        supplierInstance.addToSupplierOrders(order)
 
         supplierInstance.save(flush: true)
 

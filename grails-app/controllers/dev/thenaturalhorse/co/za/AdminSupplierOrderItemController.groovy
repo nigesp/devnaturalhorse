@@ -48,6 +48,7 @@ class AdminSupplierOrderItemController {
         SupplierOrderItem orderItem = new SupplierOrderItem()
         if (params?.numberOfItems) {
             orderItem.numberOfItems = params.int('numberOfItems')
+            orderItem.totalNumberOfItems = params.int('numberOfItems')
         }
         if (params?.pricePerOption) {
             orderItem.pricePerOption = new BigDecimal(params?.pricePerOption)
@@ -56,10 +57,14 @@ class AdminSupplierOrderItemController {
             orderItem.productOption = ProductOption?.findById(params?.productOptionId)
         }
         orderItem.supplyOrder = order
+        orderItem.numberOfRejectItems = 0
 
         orderItem.validate()
 
         if (orderItem.hasErrors()) {
+            orderItem.errors.each {
+                println it
+            }
             render(view: '/admin/supplierOrderItem/create', model: [supplierOrderInstance: order, supplierOrderItemInstance: orderItem, productList: order?.supplier?.products])
             return
         }
@@ -113,6 +118,22 @@ class AdminSupplierOrderItemController {
             render(view: '/admin/supplierOrderItem/edit', model: [supplierOrderItemInstance: supplierOrderItemInstance])
             return
         }
+
+        redirect(controller: 'adminSupplierOrder', action: 'show', id: supplierOrderItemInstance?.supplyOrder?.id)
+    }
+
+    def noRejects() {
+        SupplierOrderItem supplierOrderItemInstance = SupplierOrderItem.findById(params?.id)
+
+        if (!supplierOrderItemInstance) {
+            flash.message = message(code: 'default.not.found.message', args: ['Supplier Order Item', params?.id])
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(controller: 'adminDashboard', action: 'index')
+            return
+        }
+
+        supplierOrderItemInstance.processed = true
 
         redirect(controller: 'adminSupplierOrder', action: 'show', id: supplierOrderItemInstance?.supplyOrder?.id)
     }

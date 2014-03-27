@@ -2,15 +2,20 @@ package dev.thenaturalhorse.co.za
 
 class SupplierOrderItem {
 
+    int totalNumberOfItems
     int numberOfItems
+    int numberOfRejectItems
     BigDecimal pricePerOption
+    String rejectionReason
+    boolean processed = false
 
     static hasOne = [productOption : ProductOption]
-    static hasMany = [defectItems: SupplierOrderItemDefect]
 
     static belongsTo = [supplyOrder : SupplierOrder]
 
     static constraints = {
+        totalNumberOfItems(nulllable: false, min: 1)
+        numberOfRejectItems(nullable: false)
         numberOfItems(nullable: false, validator: { val, obj ->
             if(val < 1) {
                 return ['minValue']
@@ -27,5 +32,10 @@ class SupplierOrderItem {
             }
         })
         supplyOrder(nullable: false)
+        rejectionReason(nullable: true, blank: true)
+    }
+
+    static mapping = {
+        rejectionReason(type: "text")
     }
 }

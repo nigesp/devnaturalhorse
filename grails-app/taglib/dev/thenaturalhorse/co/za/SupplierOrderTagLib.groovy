@@ -111,7 +111,11 @@ class SupplierOrderTagLib {
                 out << ''
                 break
             case SupplyOrderState.RECEIVED :
-                out << g.render(template: '/admin/supplierOrder/templates/item-actions-received', model: [orderItemInstance: orderItem])
+                if(!orderItem.processed) {
+                    out << g.render(template: '/admin/supplierOrder/templates/item-actions-received', model: [orderItemInstance: orderItem])
+                } else {
+                    out << '<td><span class="icon-ok"></span></td>'
+                }
                 break
             case SupplyOrderState.PENDING_REORDER :
                 out << ''
