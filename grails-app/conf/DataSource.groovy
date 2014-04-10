@@ -21,6 +21,7 @@ environments {
             url = "jdbc:h2:mem:devDb;MVCC=TRUE"
         }*/
         dataSource {
+            //logSql = true
             username = "root"
             password = "ZAQxsw"
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''

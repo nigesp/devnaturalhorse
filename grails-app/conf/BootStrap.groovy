@@ -25,6 +25,7 @@ class BootStrap {
         if(suppliers.size() < 1) {
             Supplier supplier = new Supplier()
             supplier.name = "Honeyvale Herbs"
+            supplier.supplierCode = "HH"
             supplier.daysFromOrderToDelivery = 4
             supplier.status = DomainModelState.ACTIVE
 

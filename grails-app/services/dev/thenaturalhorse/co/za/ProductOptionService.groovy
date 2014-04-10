@@ -10,4 +10,13 @@ class ProductOptionService {
 
         return productOption
     }
+
+    def adProcessedItemsToStock(SupplierOrder order) {
+        order?.items?.each { orderItem ->
+            //TODO: throw an exception if orderItem is not processed.
+            ProductOption productOption = orderItem?.productOption
+            productOption?.numProducts += orderItem?.numberOfApprovedItems
+            productOption.save()
+        }
+    }
 }

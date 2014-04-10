@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="control-group  <g:if test="${hasErrors(bean: supplierOrderItemInstance, field: 'numberOfItems', 'error')}">error</g:if>">
+<div class="control-group  <g:if test="${hasErrors(bean: supplierOrderItemInstance, field: 'numberOfApprovedItems', 'error')}">error</g:if>">
     <label class="control-label" for="numberOfItems">Number of Items <span>*</span></label>
     <div class="controls">
         <g:textField name="numberOfItems" value="${supplierOrderItemInstance?.numberOfItems}"/>

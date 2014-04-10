@@ -7,7 +7,7 @@ class SupplierTagLib {
 
         int totalItems = 0
         order?.items.each {
-            totalItems += it.numberOfItems
+            totalItems += it.numberOfApprovedItems
         }
 
         out << totalItems

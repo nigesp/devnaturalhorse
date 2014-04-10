@@ -12,7 +12,7 @@
                 Are you sure you want to submit this order to ${supplierOrderInstance?.supplier?.name}:<br/>
                 <ul>
                     <g:each in="${supplierOrderInstance?.items}" var="item">
-                        <h3>${item?.numberOfItems} x ${item?.productOption?.product?.name}:</h3>
+                        <h3>${item?.totalNumberOfItems} x ${item?.productOption?.product?.name}:</h3>
                         <ul>
                             <g:if test="${item?.productOption?.productOptionAttributes?.size() > 0}">
                                 <g:each in="${item?.productOption?.productOptionAttributes}" var="attribute">

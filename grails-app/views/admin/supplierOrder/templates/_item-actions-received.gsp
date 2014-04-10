@@ -1,6 +1,6 @@
 <td>
     <button class="btn btn-mini btn-success" data-toggle="modal" data-target="#allItemsOkModal">All OK</button>
-    <a href="/adminSupplierOrderItemDefect/create/${orderItemInstance?.id}"><button class="btn btn-mini btn-danger">Defects</button></a>
+    <a href="/adminSupplierOrderItem/showCaptureRejects/${orderItemInstance?.id}"><button class="btn btn-mini btn-danger">Defects</button></a>
 </td>
 
 <!-- Modal -->

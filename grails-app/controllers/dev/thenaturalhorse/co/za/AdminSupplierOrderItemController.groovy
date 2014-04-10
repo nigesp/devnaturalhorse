@@ -46,9 +46,8 @@ class AdminSupplierOrderItemController {
         }
 
         SupplierOrderItem orderItem = new SupplierOrderItem()
-        if (params?.numberOfItems) {
-            orderItem.numberOfItems = params.int('numberOfItems')
-            orderItem.totalNumberOfItems = params.int('numberOfItems')
+        if (params?.totalNumberOfItems) {
+            orderItem.totalNumberOfItems = params.int('totalNumberOfItems')
         }
         if (params?.pricePerOption) {
             orderItem.pricePerOption = new BigDecimal(params?.pricePerOption)
@@ -101,9 +100,9 @@ class AdminSupplierOrderItemController {
         }
 
         if (params?.numberOfItems) {
-            supplierOrderItemInstance.numberOfItems = params.int('numberOfItems')
+            supplierOrderItemInstance.numberOfApprovedItems = params.int('numberOfApprovedItems')
         } else {
-            supplierOrderItemInstance.numberOfItems = 0
+            supplierOrderItemInstance.numberOfApprovedItems = 0
         }
         if (params?.pricePerOption) {
             supplierOrderItemInstance.pricePerOption = new BigDecimal(params?.pricePerOption)
@@ -134,6 +133,64 @@ class AdminSupplierOrderItemController {
         }
 
         supplierOrderItemInstance.processed = true
+        supplierOrderItemInstance.numberOfApprovedItems = supplierOrderItemInstance.totalNumberOfItems
+        supplierOrderItemInstance.numberOfRejectItems = 0
+
+        redirect(controller: 'adminSupplierOrder', action: 'show', id: supplierOrderItemInstance?.supplyOrder?.id)
+    }
+
+    def showCaptureRejects() {
+        SupplierOrderItem supplierOrderItemInstance = SupplierOrderItem.findById(params?.id)
+
+        if (!supplierOrderItemInstance) {
+            flash.message = message(code: 'default.not.found.message', args: ['Supplier Order Item', params?.id])
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(controller: 'adminDashboard', action: 'index')
+            return
+        }
+
+        render(view: '/admin/supplierOrderItem/reject-item', model: [supplierOrderItemInstance: supplierOrderItemInstance])
+    }
+
+    def captureRejects() {
+        SupplierOrderItem supplierOrderItemInstance = SupplierOrderItem.findById(params?.id)
+
+        if (!supplierOrderItemInstance) {
+            flash.message = message(code: 'default.not.found.message', args: ['Supplier Order Item', params?.id])
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(controller: 'adminDashboard', action: 'index')
+            return
+        }
+
+        if(!params?.numberOfRejectItems) {
+            supplierOrderItemInstance?.errors?.rejectValue("numberOfRejectItems", "numberOfRejectItems", "Please enter number of rejected items")
+        } else {
+            int numRejects = params.int("numberOfRejectItems")
+            if (numRejects > supplierOrderItemInstance?.totalNumberOfItems) {
+                supplierOrderItemInstance?.errors?.rejectValue("numberOfRejectItems", "numberOfRejectItems", "Cannot register more defects than items in this order.")
+            }
+        }
+
+        if (!params?.rejectionReason) {
+            supplierOrderItemInstance?.errors?.rejectValue("rejectionReason", "rejectionReason", "Please enter a reason for rejecting these items")
+        }
+
+        if (supplierOrderItemInstance?.hasErrors()) {
+            supplierOrderItemInstance.errors.each {
+                println(it)
+            }
+            render(view: '/admin/supplierOrderItem/reject-item', model: [supplierOrderItemInstance: supplierOrderItemInstance])
+            return
+        }
+
+        supplierOrderItemInstance.numberOfRejectItems = params.int("numberOfRejectItems")
+        supplierOrderItemInstance.numberOfApprovedItems = supplierOrderItemInstance.totalNumberOfItems - params.int("numberOfRejectItems")
+        supplierOrderItemInstance.rejectionReason = params?.rejectionReason
+        supplierOrderItemInstance.processed = true
+
+        supplierOrderItemInstance.save(flush: true)
 
         redirect(controller: 'adminSupplierOrder', action: 'show', id: supplierOrderItemInstance?.supplyOrder?.id)
     }

@@ -6,6 +6,8 @@ class AdminSupplierOrderController {
 
     def supplierOrderService
 
+    def productOptionService
+
     def list() {
         render(view: '/admin/supplierOrder/list', model: [supplierOrderList: SupplierOrder.findAll()])
     }
@@ -72,5 +74,32 @@ class AdminSupplierOrderController {
         order.save(flush: true)
 
         render(view: '/admin/supplierOrder/show', model: [supplierOrderInstance: order])
+    }
+
+    def process() {
+        SupplierOrder order = SupplierOrder.findById(params?.id)
+
+        if (!order) {
+            flash.message = message(code: 'default.not.found.message', args: ['Supplier Order', params?.id])
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(action: "list")
+            return
+        }
+
+        if (!supplierOrderService.allItemsProcessed(order)) {
+            flash.message = "Please process all the items in this order before processing the order."
+            flash.messageType = "alert-error"
+            flash.messageHeading = "Error"
+            redirect(action: "show", id: order?.id)
+            return
+        }
+
+        productOptionService.adProcessedItemsToStock(order)
+
+        order.state = SupplyOrderState.PROCESSED
+        order.save(flush: true)
+
+        redirect(controller: 'adminSupplier', action: 'show', id: order?.supplier?.id)
     }
 }

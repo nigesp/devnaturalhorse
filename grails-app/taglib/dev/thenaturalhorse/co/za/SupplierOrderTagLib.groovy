@@ -57,7 +57,7 @@ class SupplierOrderTagLib {
     def supplierOrderItemTotalPrice = { attr ->
         SupplierOrderItem orderItem = attr?.bean
 
-        BigDecimal total = orderItem.pricePerOption.multiply(orderItem?.numberOfItems)
+        BigDecimal total = orderItem.pricePerOption.multiply(orderItem?.totalNumberOfItems)
         out << 'R ' + total
     }
 
@@ -66,7 +66,7 @@ class SupplierOrderTagLib {
         BigDecimal orderTotal = new BigDecimal(0)
 
         order.items.each {
-            BigDecimal orderItemTotal = it.pricePerOption.multiply(new BigDecimal(it.numberOfItems))
+            BigDecimal orderItemTotal = it.pricePerOption.multiply(new BigDecimal(it.numberOfApprovedItems))
             orderTotal = orderTotal.add(orderItemTotal)
         }
 
@@ -86,7 +86,7 @@ class SupplierOrderTagLib {
                 out << g.render(template: '/admin/supplierOrder/buttons/button-received', model: [supplierOrderInstance: order, now: new Date()])
                 break
             case SupplyOrderState.RECEIVED :
-                out << '<span class=\"label\">RECIEVED</span>'
+                out << g.render(template: '/admin/supplierOrder/buttons/button-process', model: [supplierOrderInstance: order])
                 break
             case SupplyOrderState.PENDING_REORDER :
                 out << '<span class=\"label label-important\">PENDING RE-ORDER</span>'

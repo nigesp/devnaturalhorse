@@ -24,4 +24,15 @@ class SupplierOrderService {
 
         return supplier?.supplierCode + strNumOrders
     }
+
+    def boolean allItemsProcessed(SupplierOrder order) {
+        boolean allProcessed = true
+        order.items.each {
+            if(!it.processed) {
+                allProcessed = false
+            }
+        }
+
+        return allProcessed
+    }
 }

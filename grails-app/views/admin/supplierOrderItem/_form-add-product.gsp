@@ -8,11 +8,11 @@
 
 <div id="productOptions"></div>
 
-<div class="control-group  <g:if test="${hasErrors(bean: supplierOrderItemInstance, field: 'numberOfItems', 'error')}">error</g:if>">
-    <label class="control-label" for="numberOfItems">Number of Items <span>*</span></label>
+<div class="control-group  <g:if test="${hasErrors(bean: supplierOrderItemInstance, field: 'totalNumberOfItems', 'error')}">error</g:if>">
+    <label class="control-label" for="totalNumberOfItems">Number of Items <span>*</span></label>
     <div class="controls">
-        <g:textField name="numberOfItems" value="${supplierOrderItemInstance?.numberOfItems}"/>
-        <span class="help-inline"><g:fieldError field="numberOfItems" bean="${supplierOrderItemInstance}" /></span>
+        <g:textField name="totalNumberOfItems" value="${supplierOrderItemInstance?.totalNumberOfItems}"/>
+        <span class="help-inline"><g:fieldError field="totalNumberOfItems" bean="${supplierOrderItemInstance}" /></span>
     </div>
 </div>
 

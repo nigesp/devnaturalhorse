@@ -3,7 +3,7 @@ package dev.thenaturalhorse.co.za
 class SupplierOrderItem {
 
     int totalNumberOfItems
-    int numberOfItems
+    int numberOfApprovedItems
     int numberOfRejectItems
     BigDecimal pricePerOption
     String rejectionReason
@@ -15,14 +15,8 @@ class SupplierOrderItem {
 
     static constraints = {
         totalNumberOfItems(nulllable: false, min: 1)
-        numberOfRejectItems(nullable: false)
-        numberOfItems(nullable: false, validator: { val, obj ->
-            if(val < 1) {
-                return ['minValue']
-            } else {
-                return true
-            }
-        })
+        numberOfRejectItems(nullable: true)
+        numberOfApprovedItems(nullable: true)
         pricePerOption(nullable: false)
         productOption(nullable: false, validator: { val, obj ->
             if(!obj?.id && obj.supplyOrder == SupplierOrder.containsProductOption(val).get()) {

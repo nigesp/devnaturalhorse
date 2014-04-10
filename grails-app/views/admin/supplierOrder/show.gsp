@@ -1,5 +1,5 @@
 
-<%@ page import="dev.thenaturalhorse.co.za.ProductCategory" %>
+<%@ page import="dev.thenaturalhorse.co.za.enums.SupplyOrderState; dev.thenaturalhorse.co.za.ProductCategory" %>
 <!doctype html>
 <html>
 	<head>
@@ -25,6 +25,7 @@
         </div>
         <div class="main-area dashboard">
             <div class="container">
+                <g:render template="/common/message" />
                 <div class="page-header">
                     <h2>Supplier Order - ${supplierOrderInstance?.supplier?.name}</h2>
                 </div>
@@ -77,7 +78,11 @@
                                         <td>Name</td>
                                         <td>Options</td>
                                         <td>Price Per Item</td>
-                                        <td>Num Items</td>
+                                        <g:if test="${supplierOrderInstance?.state == SupplyOrderState.RECEIVED}">
+                                            <td>Num Approved</td>
+                                            <td>Num Rejected</td>
+                                        </g:if>
+                                        <td>Total Items</td>
                                         <td>Total Price</td>
                                         <g:if test="${supplierOrderInstance?.state == dev.thenaturalhorse.co.za.enums.SupplyOrderState.OPEN || supplierOrderInstance?.state == dev.thenaturalhorse.co.za.enums.SupplyOrderState.RECEIVED}">
                                             <td>Actions</td>
@@ -100,7 +105,17 @@
                                                     </g:else>
                                                 </td>
                                                 <td>R ${orderItem?.pricePerOption}</td>
-                                                <td>${orderItem?.numberOfItems}</td>
+                                                <g:if test="${supplierOrderInstance?.state == SupplyOrderState.RECEIVED}">
+                                                    <td>
+                                                        <g:if test="${orderItem?.numberOfApprovedItems}">${orderItem?.numberOfApprovedItems}</g:if>
+                                                        <g:else>-</g:else>
+                                                    </td>
+                                                    <td>
+                                                        <g:if test="${orderItem?.numberOfRejectItems}">${orderItem?.numberOfRejectItems}</g:if>
+                                                        <g:else>-</g:else>
+                                                    </td>
+                                                </g:if>
+                                                <td>${orderItem?.totalNumberOfItems}</td>
                                                 <td><g:supplierOrderItemTotalPrice bean="${orderItem}" /></td>
                                                 <g:supplyOrderItemActionButton bean="${orderItem}" />
                                             </tr>
