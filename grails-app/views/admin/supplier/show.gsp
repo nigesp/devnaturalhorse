@@ -72,6 +72,7 @@
                             <table class="orders-table table">
                                 <thead>
                                     <tr>
+                                        <td>Order Num</td>
                                         <td>Date Created</td>
                                         <td>Order Size</td>
                                         <td>Status</td>
@@ -79,9 +80,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <g:if test="${supplierInstance?.supplierOrders?.size() > 0}">
-                                        <g:each in="${supplierInstance?.supplierOrders}" var="order">
+                                    <g:if test="${orderedSupplierOrders?.size() > 0}">
+                                        <g:each in="${orderedSupplierOrders}" var="order">
                                             <tr>
+                                                <td>${order.orderNum}</td>
                                                 <td><g:formatDate format="dd MMM yyyy" date="${order?.dateCreated}"/></td>
                                                 <td><g:supplierOrderTotalItems bean="${order}" /></td>
                                                 <td>
@@ -89,13 +91,12 @@
                                                 </td>
                                                 <td>
                                                     <a href="/adminSupplierOrder/show/${order?.id}"><button class="btn btn-mini btn-info">View</button></a>
-                                                    <g:supplyOrderButton bean="${order}" />
                                                 </td>
                                             </tr>
                                         </g:each>
                                     </g:if>
                                     <g:else>
-                                        <tr><td>No orders have been made to this supplier.</td></tr>
+                                        <tr><td colspan="5">No orders have been made to this supplier.</td></tr>
                                     </g:else>
                                 </tbody>
                             </table>

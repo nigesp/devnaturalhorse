@@ -97,6 +97,8 @@ class AdminSupplierOrderController {
 
         productOptionService.adProcessedItemsToStock(order)
 
+        supplierOrderService.createChildSupplierOrder(order)
+
         order.state = SupplyOrderState.PROCESSED
         order.save(flush: true)
 

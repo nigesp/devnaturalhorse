@@ -122,7 +122,7 @@
                                         </g:each>
                                     </g:if>
                                     <g:else>
-                                        <tr><td><p>There are currently no products in this Supplier Order</p></td></tr>
+                                        <tr><td colspan="6"><p>There are currently no products in this Supplier Order</p></td></tr>
                                     </g:else>
                                 </tbody>
                             </table>

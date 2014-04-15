@@ -4,31 +4,6 @@ import dev.thenaturalhorse.co.za.enums.SupplyOrderState
 
 class SupplierOrderTagLib {
 
-    def supplyOrderButton = { attrs ->
-        SupplierOrder order = attrs?.bean
-
-        switch (order.state) {
-            case SupplyOrderState.OPEN :
-                out << g.render(template: '/admin/supplierOrder/buttons/button-add-product', model: [supplierOrderInstance: order])
-                break
-            case SupplyOrderState.ORDERED :
-                out << g.render(template: '/admin/supplierOrder/buttons/button-received', model: [supplierOrderInstance: order])
-                break
-            case SupplyOrderState.RECEIVED :
-                out << g.render(template: '/admin/supplierOrder/buttons/button-edit', model: [supplierOrderInstance: order])
-                break
-            case SupplyOrderState.PENDING_REORDER :
-                out << g.render(template: '/admin/supplierOrder/buttons/button-edit', model: [supplierOrderInstance: order])
-                break
-            case SupplyOrderState.PROCESSED :
-                out << g.render(template: '/admin/supplierOrder/buttons/button-paid', model: [supplierOrderInstance: order])
-                break
-            case SupplyOrderState.PAID :
-                out << '-'
-                break
-        }
-    }
-
     def supplyOrderState = { attr ->
         SupplierOrder order = attr?.bean
 

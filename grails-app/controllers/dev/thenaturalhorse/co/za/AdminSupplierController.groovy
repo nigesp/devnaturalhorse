@@ -46,7 +46,11 @@ class AdminSupplierController {
             return
         }
 
-        render(view: '/admin/supplier/show', model: [supplierInstance: supplierInstance])
+        def orderedSupplierOrders = supplierInstance?.supplierOrders?.sort{ a, b ->
+            b.id <=> a.id
+        }
+
+        render(view: '/admin/supplier/show', model: [supplierInstance: supplierInstance, orderedSupplierOrders: orderedSupplierOrders])
     }
 
     def edit() {
