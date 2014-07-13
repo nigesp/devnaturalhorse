@@ -97,7 +97,7 @@ grails {
         aws {
             credentials {
                 accessKey = "AKIAJJ3S4DYLBYZZYEGQ"
-                secretKey = "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"
+                secretKey = "n3bmIe+KVzC5ms3EVhzXWCj8b/2X9jtwFN2OJIHl_123"
             }
             s3 {
                 bucket = "thenaturalhorse"
